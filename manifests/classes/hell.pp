@@ -7,7 +7,7 @@ class hell {
 	}
 	exec { 'pcsprep':
 	cwd => '/root',
-	command => "/bin/sh pcsprep.sh 192.168.0.98 24 centoszfs2c centoszfs1c Man2",
+	command => "/bin/sh pcsprep.sh 192.168.0.98 24 centoszfs2c centoszfs1c Man2 enp0s3 ",
 	path =>'/root/;/bin/;/sbin/',
 	refreshonly => true,
 	}
