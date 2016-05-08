@@ -9,5 +9,5 @@ if [ $? -ne 0 ]; then
  sed -i "s/\/var\//\/${p}\/var\//g" $mongo
 fi
 mkdir -p /${p}/var/{lib/mongodb,run/mongodb,log/mongodb}
-systemctl enable mongod.service
-systemctl start mongod.service
+#systemctl enable mongod.service
+#systemctl start mongod.service

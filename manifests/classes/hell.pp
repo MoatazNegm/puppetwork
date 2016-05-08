@@ -118,7 +118,7 @@ class hell {
 	}
 	exec { 'openstackcnf':
 	cwd => '/root',
-	command => "/bin/sh openstackcnf.sh $CC $share ",
+	command => "/bin/sh openstackcnf.sh $CC $share CC",
 	subscribe => File['/root/openstackcnf.sh'], 
 	}
         file { '/root/mysqlsecure.sh':
