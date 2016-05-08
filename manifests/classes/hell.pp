@@ -59,7 +59,7 @@ class hell {
 	}
 	exec { 'chronymore1':
 	cwd => '/root',
-	command => "/bin/sh chronyconfig.sh 192.168.0.0 24",
+	command => "/bin/sh chronyconfig.sh 192.168.0.0 24 CC",
 	subscribe => Package[chrony],
 	refreshonly => true,
 	}
