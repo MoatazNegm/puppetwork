@@ -1,4 +1,7 @@
 import "classes/*.pp"
+class global_exec_path {
+	Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/', '/root/' ]}
+}
 class toolbox {
 	file { "/root/puppetsimple.sh":
 	owner => root, group => root, mode => 0755,
