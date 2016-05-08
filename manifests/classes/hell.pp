@@ -159,7 +159,7 @@ class hell {
 	}
 	exec { 'rabbitmqchanges':
 	cwd => '/root',
-	command => "/bin/sh rabbit.sh $rabbit_user $rabbit_pass",
+	command => "/bin/sh rabbit.sh $rabbit_user $rabbit_pass CC $CC",
 	subscribe => [ File['/root/rabbit.sh'], Package["rabbitmq-server"], Package['memcached'], Package['python-memcached']],
 	}
 	
