@@ -63,5 +63,22 @@ class hell {
 	subscribe => Package[chrony],
 	refreshonly => true,
 	}
+	package { 'centos-release-openstack-mitaka':
+	ensure => 'installed',
+	subscribe => File["/root/pcsprep.sh"],
+	}
+	exec { 'repoinstall':
+	cwd => '/root',
+	command => "/bin/yum upgrade -y",
+	subscribe => Package["centos-release-openstack-mitaka"],
+	}
+	package { 'python-openstackclient':
+	ensure => 'installed',
+	subscribe => Exec["repoinstall"],
+	}
+	package { 'openstack-selinux':
+	ensure => 'installed',
+	subscribe => Exec["repoinstall"],
+	}
 }
 

@@ -10,3 +10,4 @@ if [ $? -ne 0 ]; then
  systemctl enable chronyd.service
  systemctl start chronyd.service
 fi
+/bin/timedatectl set-timezone Africa/Cairo
