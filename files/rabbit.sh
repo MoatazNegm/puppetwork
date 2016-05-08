@@ -6,5 +6,7 @@ systemctl enable rabbitmq-server.service
 systemctl start rabbitmq-server.service
 rabbitmqctl add_user $user  $pass
 rabbitmqctl set_permissions $user ".*" ".*" ".*"
+systemctl enable memcached.service 
+systemctl start memcached.service
 
 

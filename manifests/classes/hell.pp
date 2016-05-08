@@ -147,7 +147,7 @@ class hell {
 	command => "/bin/sh mongochanges.sh $CC $share",
 	subscribe => [ File['/root/mongochanges.sh'], Package["mongodb"], Package["mongodb-server"]],
 	}
-	package { 'rabbitmq-server':
+	package { [ 'rabbitmq-server', 'memcached', 'python-memcached']:
 	ensure => 'installed',
 	subscribe => Exec["repoinstall"],
 	}
@@ -160,7 +160,7 @@ class hell {
 	exec { 'rabbitmqchanges':
 	cwd => '/root',
 	command => "/bin/sh rabbit.sh $rabbit_user $rabbit_pass",
-	subscribe => [ File['/root/rabbit.sh'], Package["rabbitmq-server"]],
+	subscribe => [ File['/root/rabbit.sh'], Package["rabbitmq-server"], Package['memcached'], Package['python-memcached']],
 	}
 	
 }
