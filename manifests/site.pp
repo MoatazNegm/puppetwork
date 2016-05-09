@@ -14,7 +14,7 @@ $mysql_pass = 'tmatem'
 $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
 # run_what to install what : any thing empty, or 'all' means all to be installed' then : identity
-$run_what='all'
+$run_what='identity'
 class global_exec_path {
 	Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/', '/root/' ]}
 }

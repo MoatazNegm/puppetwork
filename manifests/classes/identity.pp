@@ -41,9 +41,27 @@ class identity {
 	ensure => 'file',
 	subscribe => Package['openstack-keystone'],
 	}
+        file { '/root/server_status.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/server_status.conf',
+	ensure => 'file',
+	subscribe => Package['httpd'],
+	}
 	exec { 'identitch':
 	cwd => '/root',
 	command => "/bin/sh idchanges.sh $keystonedb_pass CC",
-	subscribe => File['/root/idchanges.sh'],
+	subscribe => [ File['/root/idchanges.sh'], File['/root/server_status.conf'] ],
+	}
+        file { '/root/keystonech.sh':
+        mode => 755,
+        source => 'puppet:///extra_files/keystonech.sh',
+	ensure => 'file',
+	subscribe => Exec['identitch'],
+	}
+	exec { 'keystonech':
+	cwd => '/root',
+	command => "/bin/sh keystonech.sh CC",
+	logoutput => true,
+	subscribe => File['/root/keystonech.sh'],
 	}
 }

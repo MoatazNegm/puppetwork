@@ -17,8 +17,8 @@ fi
 pcsitems=`pcs resource`
 echo $pcsitems | grep keyweb
 if [ $? -ne 0 ]; then
- pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://CC/server-status" op monitor interval=1min
+ cp /root/server_status.conf /etc/httpd/conf.d/ ;
+ pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://127.0.0.1/server-status" op monitor interval=1min
  pcs resource group add ${cont}g keyweb
  pcs constraint order iscsizfs then keyweb
 fi
-
