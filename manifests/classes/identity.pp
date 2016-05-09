@@ -15,6 +15,7 @@ $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
 */
 $keystonedb_pass = 'tmatem'
+$defualtDom_pass = 'tmatem'
 class identity {
         file { '/root/identitysql.sh':
         mode => 755,
@@ -63,5 +64,17 @@ class identity {
 	command => "/bin/sh keystonech.sh CC",
 	logoutput => true,
 	subscribe => File['/root/keystonech.sh'],
+	}
+        file { '/root/keystonech2.sh':
+        mode => 755,
+        source => 'puppet:///extra_files/keystonech2.sh',
+	ensure => 'file',
+	subscribe => Exec['identitch'],
+	}
+	exec { 'keystonech2':
+	cwd => '/root',
+	command => "/bin/sh keystonech2.sh $defualtDom_pass",
+	logoutput => true,
+	subscribe => [ File['/root/keystonech2.sh'], Exec['identitch'] ],
 	}
 }
