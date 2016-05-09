@@ -7,7 +7,7 @@ man=`echo $@ | /bin/awk '{print $5}'`;
 eth=`echo $@ | /bin/awk '{print $6}'`
 resources=`/sbin/pcs resource `;
 hostss=`/bin/cat /etc/hosts`;
-echo $resources | /bin/grep $man &>/dev/null
+echo $resources | /bin/grep -v ${man}g | /bin/grep $man &>/dev/null
 if [ $? -ne 0 ]; then
  /sbin/pcs resource create $man ocf:heartbeat:IPaddr2 ip=$ipaddr nic=$eth cidr_netmask=$netm op monitor interval=5s
  /sbin/pcs resource group add ${man}g $man

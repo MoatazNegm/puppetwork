@@ -21,6 +21,7 @@ rm -rf /var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
 ln -s  /${p}/var/lib/mysql /var/lib/mysql
 ln -s  /${p}/var/log/mariadb /var/log/mariadb
 ln -s  /${p}/var/run/mariadb /var/run/mariadb
+mysql_install_db --user=mysql
 pcs resource create mariadb${man} ocf:heartbeat:mysql datadir=/${p}/var/lib/mysql op monitor interval=3s
 groupitems=`/sbin/pcs resource show ${man}g`;
 echo $groupitems | grep ZFS &>/dev/null

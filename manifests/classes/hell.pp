@@ -1,29 +1,25 @@
-$CC = '192.168.0.98'
-$compute1 = '192.168.0.97'
-$block1 = '192.168.0.96'
-$object1 = '192.168.0.95'
-$compute2 = '192.168.0.94'
-$block2 = '192.168.0.93'
-$object2 = '192.168.0.92'
-$net = '192.168.0.0'
-$node1 = 'centoszfs1c'
-$node2 = 'centoszfs2c'
-$share = 'p1'
-$mysql_pass = 'tmatem'
-$rabbit_user = 'openstack'
-$rabbit_pass = 'tmatem'
 class hell {
         file { '/root/pcsprep.sh':
         mode => 755,
         source => 'puppet:///extra_files/pcsprep.sh',
 	ensure => 'file',
-        notify => Exec[pcsprep],
 	}
 	exec { 'pcsprep':
 	cwd => '/root',
 	command => "/bin/sh pcsprep.sh $CC 24 $node2 $node1 CC enp0s3 ",
 	path =>'/root/;/bin/;/sbin/',
-	refreshonly => true,
+	subscribe => File['/root/pcsprep.sh'],
+	}
+        file { '/root/zfsprep.sh':
+        mode => 755,
+        source => 'puppet:///extra_files/zfsprep.sh',
+	ensure => 'file',
+	}
+	exec { 'zfsprep':
+	cwd => '/root',
+	command => "/bin/sh zfsprep.sh CC ",
+	path =>'/root/;/bin/;/sbin/',
+	subscribe => File['/root/zfsprep.sh'],
 	}
 	exec { 'compute1':
 	cwd => '/root',
@@ -69,13 +65,11 @@ class hell {
         mode => 755,
         source => 'puppet:///extra_files/chronyconfig.sh',
 	ensure => 'file',
-        notify => Exec[chronymore1],
 	}
 	exec { 'chronymore1':
 	cwd => '/root',
 	command => "/bin/sh chronyconfig.sh $net 24 CC",
-	subscribe => Package[chrony],
-	refreshonly => true,
+	subscribe => [ Package[chrony], File['/root/chronyconfig.sh'] ]
 	}
 	package { 'centos-release-openstack-mitaka':
 	ensure => 'installed',
@@ -83,12 +77,11 @@ class hell {
 	}
 	package { 'expect':
 	ensure => 'installed',
-	subscribe => File["/root/pcsprep.sh"],
 	}
 	exec { 'repoinstall':
 	cwd => '/root',
 	command => "/bin/yum upgrade -y",
-	subscribe => Package["centos-release-openstack-mitaka"],
+	subscribe => [ Exec['zfsprep'], Exec['pcsprep'], Package["centos-release-openstack-mitaka"] ],
 	}
 	package { 'python-openstackclient':
 	ensure => 'installed',
@@ -119,7 +112,7 @@ class hell {
 	exec { 'openstackcnf':
 	cwd => '/root',
 	command => "/bin/sh openstackcnf.sh $CC $share CC",
-	subscribe => File['/root/openstackcnf.sh'], 
+	subscribe => [ File['/root/openstackcnf.sh'], Exec['zfsprep'], Exec['pcsprep'] ], 
 	}
         file { '/root/mysqlsecure.sh':
         mode => 755,
@@ -144,12 +137,18 @@ class hell {
 	}
 	exec { 'configmongo':
 	cwd => '/root',
-	command => "/bin/sh mongochanges.sh $CC $share",
-	subscribe => [ File['/root/mongochanges.sh'], Package["mongodb"], Package["mongodb-server"]],
+	command => "/bin/sh mongochanges.sh $CC $share CC",
+	subscribe => [ File['/root/mongochanges.sh'], Package["mongodb"], Package["mongodb-server"], Exec['zfsprep'], Exec['pcsprep'] ],
 	}
 	package { [ 'rabbitmq-server', 'memcached', 'python-memcached']:
 	ensure => 'installed',
 	subscribe => Exec["repoinstall"],
+	}
+        file { '/etc/rabbitmq/rabbitmq.config':
+        mode => 755,
+        source => 'puppet:///extra_files/rabbitmq.config',
+	ensure => 'file',
+        subscribe => Package["rabbitmq-server"],
 	}
         file { '/root/rabbit.sh':
         mode => 755,
@@ -160,7 +159,7 @@ class hell {
 	exec { 'rabbitmqchanges':
 	cwd => '/root',
 	command => "/bin/sh rabbit.sh $rabbit_user $rabbit_pass CC $CC",
-	subscribe => [ File['/root/rabbit.sh'], Package["rabbitmq-server"], Package['memcached'], Package['python-memcached']],
+	subscribe => [ File['/root/rabbit.sh'], Package["rabbitmq-server"], Package['memcached'], Package['python-memcached'], Exec['pcsprep'] ],
 	}
 	
 }
