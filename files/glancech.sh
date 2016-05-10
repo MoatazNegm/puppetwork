@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
  openstack user create --domain default --password $pass2 glance
  openstack role add --project service --user glance admin
  openstack service create --name glance --description "OpenStack Image" image
- openstack endpoint create --region RegionOne image public http://CC:9292
- openstack endpoint create --region RegionOne image internal http://CC:9292
- openstack endpoint create --region RegionOne image admin http://CC:9292
+ openstack endpoint create --region RegionOne image public http://$CC:9292
+ openstack endpoint create --region RegionOne image internal http://$CC:9292
+ openstack endpoint create --region RegionOne image admin http://$CC:9292
 fi
