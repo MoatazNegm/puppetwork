@@ -41,7 +41,7 @@ class novaneutron {
 	}
 	exec { 'novaneutronch2':
 	cwd => '/root',
-	command => "/bin/sh novaneutronch2.sh CC $compute1 $neutronuser_pass $neutrondb_pass $rabbit_pass $ether $metadatasecret",
+	command => "/bin/sh novaneutronch2.sh $CC $compute1 $neutronuser_pass $neutrondb_pass $rabbit_pass $ether $metadatasecret",
 	logoutput => true,
 	subscribe => [ File['/root/novaneutronch2.sh'], Package['openstack-neutron-linuxbridge'], Package['ebtables'], Package['ipset'] ],
 	}

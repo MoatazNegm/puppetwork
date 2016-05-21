@@ -15,6 +15,7 @@ rabbitpass=`echo $@ | awk '{print $5}'`;
 ether=`echo $@ | awk '{print $6}'`;
 secret=`echo $@ | awk '{print $7}'`;
 novauspass=`echo $@ | awk '{print $8}'`;
+pcsg=`echo $@ | awk '{print $9}'`;
 echo $@ > neturontmp
 cat $neutronconf | grep $contip &>/dev/null
 if [ $? -ne 0 ]; then
@@ -104,11 +105,11 @@ if [ $? -ne 0 ];then
  pcs resource create neutron-dhcp ocf:heartbeat:neutrondhcp op monitor interval=1min
  pcs resource create neutron-metadata ocf:heartbeat:neutronmetadata op monitor interval=1min
  pcs resource create neutron-l3-agent ocf:heartbeat:neutronl3agent op monitor interval=1min
- pcs resource group add ${cont}g neutron-server
- pcs resource group add ${cont}g neutron-linuxbridge
- pcs resource group add ${cont}g neutron-dhcp
- pcs resource group add ${cont}g neutron-metadata
- pcs resource group add ${cont}g neutron-l3-agent
+ pcs resource group add ${pcsg}g neutron-server
+ pcs resource group add ${pcsg}g neutron-linuxbridge
+ pcs resource group add ${pcsg}g neutron-dhcp
+ pcs resource group add ${pcsg}g neutron-metadata
+ pcs resource group add ${pcsg}g neutron-l3-agent
  pcs constraint order novaapi then neutron-server
  pcs constraint order novaapi then neutron-linuxbridge
  pcs constraint order novaapi then neutron-dhcp

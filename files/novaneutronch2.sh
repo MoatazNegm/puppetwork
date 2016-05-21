@@ -16,7 +16,7 @@ secret=`echo $@ | awk '{print $7}'`;
 echo $@ > neturontmp
 cat $neutronconf | grep $contip &>/dev/null
 if [ $? -ne 0 ]; then
- sed -i "/\[database\] \=/a connection \= http://neutron:$dbpass@$cont/neutron" $neutronconf
+ sed -i "/\[database\]/a connection \= http://neutron:$dbpass@$cont/neutron" $neutronconf
  sed -i "/rpc_backend\=/c\rpc_backend \= rabbit" $neutronconf
  sed -i "/rpc_backend \=/c\rpc_backend \= rabbit" $neutronconf
  sed -i "/rabbit_host \=/c\rabbit_host \= $cont" $neutronconf
@@ -60,4 +60,6 @@ echo $iscontroller | grep neutron
 if [ $? -ne 0 ]; then 
  systemctl enable neutron-linuxbridge-agent.service
  systemctl start neutron-linuxbridge-agent.service
+else
+ systemctl restart neutron-linuxbridge-agent.service
 fi

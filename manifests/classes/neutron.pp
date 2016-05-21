@@ -45,13 +45,13 @@ class neutron {
 	}
 	exec { 'neutronch':
 	cwd => '/root',
-	command => "/bin/sh neutronch.sh $mysql_pass CC $neutrondb_pass $neutronuser_pass CC ",
+	command => "/bin/sh neutronch.sh $mysql_pass $CC $neutrondb_pass $neutronuser_pass $CC ",
 	logoutput => true,
 	subscribe => File['/root/neutronch.sh'],
 	}
 	exec { 'neutronch2':
 	cwd => '/root',
-	command => "/bin/sh neutronch2.sh CC $CC $neutronuser_pass $neutrondb_pass $rabbit_pass $ether $metadatasecret $computeuser_pass",
+	command => "/bin/sh neutronch2.sh $CC $CC $neutronuser_pass $neutrondb_pass $rabbit_pass $ether $metadatasecret $computeuser_pass CC",
 	logoutput => true,
 	subscribe => [ File['/root/neutronch2.sh'], Exec['neutronch'], Package[ 'openstack-neutron', 'openstack-neutron-ml2', 'openstack-neutron-linuxbridge', 'ebtables' ] ],
 	}
