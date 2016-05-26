@@ -30,9 +30,14 @@ $neutrondb_pass = 'tmatem'
 $ether = 'enp0s8'
 $metadatasecret = 'tmatem'
 class neutron {
+       file {  '/usr/lib/ocf/resource.d':
+        mode => 755,
+        source => 'puppet:///extra_files/resource.d',
+	recurse => 'true',
+	}
        package { [ 'openstack-neutron', 'openstack-neutron-ml2', 'openstack-neutron-linuxbridge', 'ebtables' ]:
 	ensure => 'installed',
-	notify => 'dummyrun',
+	notify => Exec['dummyrun'],
 	}
 	exec { 'dummyrun':
 	command => "/bin/true",
@@ -89,7 +94,7 @@ class neutron {
 	cwd => '/root',
 	command => "/bin/sh neutronch.sh $mysql_pass $CC $neutrondb_pass $neutronuser_pass $CC ",
 	logoutput => true,
-	subscribe => File['/root/neutronch.sh','/etc/neutron/metadata_agent.ini', '/etc/neutron/dhcp_agent.ini','/etc/neutron/l3_agent.ini','/etc/neutron/plugins/ml2/linuxbrindge_agent.ini','/etc/neutron/plugins/ml2/ml2_conf.ini','/etc/neutorn/neutron.conf'],
+	subscribe => File['/root/neutronch.sh','/etc/neutron/metadata_agent.ini', '/etc/neutron/dhcp_agent.ini','/etc/neutron/l3_agent.ini','/etc/neutron/plugins/ml2/linuxbridge_agent.ini','/etc/neutron/plugins/ml2/ml2_conf.ini','/etc/neutron/neutron.conf'],
 	}
 	exec { 'neutronch2':
 	cwd => '/root',

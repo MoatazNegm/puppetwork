@@ -46,7 +46,7 @@ if [ $? -ne 0 ];then
  pcs resource create neutron-linuxbridge ocf:heartbeat:neutronlinuxbridge op monitor interval=1min
  pcs resource create neutron-dhcp ocf:heartbeat:neutrondhcp op monitor interval=1min
  pcs resource create neutron-metadata ocf:heartbeat:neutronmetadata op monitor interval=1min
- pcs resource create neutron-l3-agent ocf:heartbeat:neutronl3agent op monitor interval=1min
+ pcs resource create neutron-l3-agent ocf:heartbeat:neutronl3 op monitor interval=1min
  pcs resource group add ${pcsg}g neutron-server
  pcs resource group add ${pcsg}g neutron-linuxbridge
  pcs resource group add ${pcsg}g neutron-dhcp

@@ -23,6 +23,11 @@ $glanceuser_pass = 'tmatem'
 $computedb_pass = 'tmatem'
 $computeuser_pass = 'tmatem'
 class compute1 {
+        file {  '/usr/lib/ocf/resource.d':
+        mode => 755,
+        source => 'puppet:///extra_files/resource.d',
+	recurse => 'true',
+	}
         file {  '/root/nova.conf':
         mode => 755,
         source => 'puppet:///extra_files/nova.conf',
