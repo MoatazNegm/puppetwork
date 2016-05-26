@@ -1,12 +1,12 @@
 /* 
-$CC = '192.168.0.98'
-$compute1 = '192.168.0.97'
-$block1 = '192.168.0.96'
-$object1 = '192.168.0.95'
-$compute2 = '192.168.0.94'
-$block2 = '192.168.0.93'
-$object2 = '192.168.0.92'
-$net = '192.168.0.0'
+$CC = '10.11.11.98'
+$compute1 = '10.11.11.97'
+$block1 = '10.11.11.96'
+$object1 = '10.11.11.95'
+$compute2 = '10.11.11.94'
+$block2 = '10.11.11.93'
+$object2 = '10.11.11.92'
+$net = '10.11.11.0'
 $node1 = 'centoszfs1c'
 $node2 = 'centoszfs2c'
 $share = 'p1'
@@ -35,7 +35,7 @@ class computenode {
 	}
 	exec { 'computenodech':
 	cwd => '/root',
-	command => "/bin/sh computenodech.sh compute1 $compute1 $computeuser_pass CC $rabbit_pass $kvm",
+	command => "/bin/sh computenodech.sh compute1 $CC $computeuser_pass $CC $rabbit_pass $kvm",
 	logoutput => true,
 	subscribe => [ File['/root/computenodech.sh'], Package['openstack-nova-compute'] ],
 	}

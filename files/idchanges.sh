@@ -4,6 +4,7 @@ keyconf='/etc/keystone/keystone.conf';
 httpd='/etc/httpd/conf/httpd.conf';
 pass=`echo $@ | awk '{print $1}'`;
 cont=`echo $@ | awk '{print $2}'`;
+pcsg=`echo $@ | awk '{print $3}'`;
 token=`openssl rand -hex 10`;
 cat $keyconf | grep $pass &>/dev/null
 if [ $? -ne 0 ]; then
@@ -19,6 +20,6 @@ echo $pcsitems | grep keyweb
 if [ $? -ne 0 ]; then
  cp /root/server_status.conf /etc/httpd/conf.d/ ;
  pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://127.0.0.1/server-status" op monitor interval=1min
- pcs resource group add ${cont}g keyweb
+ pcs resource group add ${pcsg}g keyweb
  pcs constraint order iscsizfs then keyweb
 fi

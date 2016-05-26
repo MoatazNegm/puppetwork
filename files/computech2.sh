@@ -10,12 +10,12 @@ rabbitpass=`echo $@ | awk '{print $6}'`;
 cat $novaconf | grep $dbpass &>/dev/null
 if [ $? -ne 0 ]; then
  cp nova.conf $novaconf;
- sed -i "s/COMPUTEIP/${contip}/g" $novaconf 
- sed -i "s/CONT/${cont}/g" $novaconf 
  sed -i "s/DBPASS/${dbpass}/g" $novaconf 
  sed -i "s/USPASS/${uspass}/g" $novaconf
- sed -i "s/CC/${CC}/g" $novaconf
+ sed -i "s/CC/$contip/g" $novaconf
+ sed -i "s/COMPUTEIP/$contip/g" $novaconf
  sed -i "s/RABBITPASS/${rabbitpass}/g" $novaconf
+ sed -i "s/\#NOVA\#//g" $novaconf
  chmod 640 $novaconf
  chown root:nova $novaconf
  su -s /bin/sh -c "nova-manage api_db sync" nova;

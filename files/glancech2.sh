@@ -14,8 +14,8 @@ if [ $? -ne 0 ]; then
  cp glance-registry.conf $glancereg;
  sed -i "s/CONTIP/${contip}/g" $glanceapi
  sed -i "s/CONTIP/${contip}/g" $glancereg 
- sed -i "s/CONT/${cont}/g" $glancereg 
- sed -i "s/CONT/${cont}/g" $glanceapi
+ sed -i "s/CONT/${contip}/g" $glancereg 
+ sed -i "s/CONT/${contip}/g" $glanceapi
  sed -i "s/DBPASS/${dbpass}/g" $glancereg 
  sed -i "s/DBPASS/${dbpass}/g" $glanceapi
  sed -i "s/USPASS/${uspass}/g" $glancereg 

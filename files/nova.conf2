@@ -1,14 +1,14 @@
 [DEFAULT]
 my_ip=COMPUTEIP
-#NOVA#enabled_apis=osapi_compute,metadata
-;osapi_compute_listen=COMPUTEIP
-;metadata_listen=COMPUTEIP
+enabled_apis=osapi_compute,metadata
+osapi_compute_listen=COMPUTEIP
+metadata_listen=COMPUTEIP
 auth_strategy=keystone
 firewall_driver=nova.virt.firewall.NoopFirewallDriver
 use_neutron=true
 rpc_backend=rabbit
 [api_database]
-#NOVA#connection = mysql+pymysql://nova:DBPASS@CC/nova_api
+connection = mysql+pymysql://nova:DBPASS@CC/nova_api
 [barbican]
 [cache]
 [cells]
@@ -17,7 +17,7 @@ rpc_backend=rabbit
 [cors]
 [cors.subdomain]
 [database]
-#NOVA#connection = mysql+pymysql://nova:DBPASS@CC/nova
+connection = mysql+pymysql://nova:DBPASS@CC/nova
 [ephemeral_storage_encryption]
 [glance]
 api_servers=http://CC:9292
@@ -37,7 +37,6 @@ project_name = service
 username = nova
 password = USPASS
 [libvirt]
-#COMPUTE#virt_type= KVM
 [matchmaker_redis]
 [metrics]
 [neutron]
@@ -48,10 +47,10 @@ project_domain_name = default
 user_domain_name = default
 region_name = RegionOne
 project_name = service
-username = neutron
+username = NEUTUS
 password = NEUTPASS
-#NEUTRON#service_metadata_proxy = True
-#NEUTRON#metadata_proxy_shared_secret = SECRET
+service_metadata_proxy = True
+metadata_proxy_shared_secret = tamtem
 [osapi_v21]
 [oslo_concurrency]
 lock_path=/var/lib/nova/tmp
@@ -71,10 +70,8 @@ rabbit_password=RABBITPASS
 [upgrade_levels]
 [vmware]
 [vnc]
-#COMPUTE#enabled=True
-vncserver_listen= $my_ip
-vncserver_proxyclient_address= COMPUTEIP
-#COMPUTE#novncproxy_base_url= http://CC:6080/vnc_auto.html
-#novncproxy_host=COMPUTEIP
+vncserver_listen=$my_ip
+vncserver_proxyclient_address= $my_ip
+novncproxy_host=COMPUTEIP
 [workarounds]
 [xenserver]
