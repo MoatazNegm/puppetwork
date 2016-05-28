@@ -30,6 +30,11 @@ $neutrondb_pass = 'tmatem'
 $ether = 'enp0s8'
 $metadatasecret = 'tmatem'
 class neutron {
+       file {  '/etc/sysctl.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/sysctl.conf',
+	ensure => 'file',
+	}
        file {  '/usr/lib/ocf/resource.d':
         mode => 755,
         source => 'puppet:///extra_files/resource.d',

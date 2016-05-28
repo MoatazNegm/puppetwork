@@ -14,7 +14,7 @@ $mysql_pass = 'tmatem'
 $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
 # run_what to install what : any thing empty, or 'all' means all to be installed' then : hell identity computeservice computenode neutron novaneutron
-$run_what='neutron'
+$run_what='hell'
 class global_exec_path {
 	Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/', '/root/' ]}
 }
@@ -33,7 +33,7 @@ case $run_what {
 	'computenode': { include computenode }
 	'neutron': { include neutron }
 	'novaneutron': { include novaneutron }
-	default:  { 
+	'hell':  { 
 		include hell 
 	}
 	}

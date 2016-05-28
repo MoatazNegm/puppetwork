@@ -21,42 +21,6 @@ class hell {
 	path =>'/root/;/bin/;/sbin/',
 	subscribe => File['/root/zfsprep.sh'],
 	}
-	exec { 'compute1':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $compute1 24 $node2 $node1 compute1 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
-	exec { 'block1':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $block1 24 $node2 $node1 block1 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
-	exec { 'object1':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $object1 24 $node2 $node1 object1 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
-	exec { 'compute2':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $compute2 24 $node1 $node2  compute2 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
-	exec { 'block2':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $block2 24 $node1 $node2 block2 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
-	exec { 'object2':
-	cwd => '/root',
-	command => "/bin/sh pcsprep.sh $object2 24 $node1 $node2 object2 enp0s3 ",
-	path =>'/root/;/bin/;/sbin/',
-	subscribe => File["/root/pcsprep.sh"],
-	}
 	package { 'chrony':
 	ensure => 'installed',
 	subscribe => File["/root/pcsprep.sh"],

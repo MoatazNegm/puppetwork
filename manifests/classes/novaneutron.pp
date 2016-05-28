@@ -31,6 +31,11 @@ $ether = 'enp0s8'
 $metadatasecret = 'tmatem'
 */
 class novaneutron {
+       file {  '/etc/sysctl.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/sysctl.conf',
+	ensure => 'file',
+	}
        package { [ 'openstack-neutron-linuxbridge', 'ebtables', 'ipset' ]:
 	ensure => 'installed',
 	}
