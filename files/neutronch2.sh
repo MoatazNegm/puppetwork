@@ -58,3 +58,4 @@ if [ $? -ne 0 ];then
  pcs constraint order novaapi then neutron-metadata
  pcs constraint order novaapi then neutron-l3-agent
 fi
+sysctl -p

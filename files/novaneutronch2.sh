@@ -34,3 +34,4 @@ if [ $? -ne 0 ]; then
 else
  systemctl restart neutron-linuxbridge-agent.service
 fi
+sysctl -p
