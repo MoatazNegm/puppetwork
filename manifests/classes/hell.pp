@@ -1,8 +1,14 @@
 class hell {
+        file { '/usr/lib/ocf/resource.d':
+        mode => 755,
+        source => 'puppet:///extra_files/resource.d',
+	recurse => 'true',
+	}
         file { '/root/pcsprep.sh':
         mode => 755,
         source => 'puppet:///extra_files/pcsprep.sh',
 	ensure => 'file',
+	subscribe => File['/usr/lib/ocf/resource.d'],
 	}
 	exec { 'pcsprep':
 	cwd => '/root',
@@ -44,7 +50,7 @@ class hell {
 	}
 	exec { 'repoinstall':
 	cwd => '/root',
-	command => "/bin/yum upgrade -y",
+	command => "/bin/true",
 	subscribe => [ Exec['zfsprep'], Exec['pcsprep'], Package["centos-release-openstack-mitaka"] ],
 	}
 	package { 'python-openstackclient':

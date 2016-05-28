@@ -35,7 +35,7 @@ class computenode {
 	}
 	exec { 'computenodech':
 	cwd => '/root',
-	command => "/bin/sh computenodech.sh compute1 $CC $computeuser_pass $CC $rabbit_pass $kvm",
+	command => "/bin/sh computenodech.sh $CC $computeuser_pass $CC $rabbit_pass $kvm",
 	logoutput => true,
 	subscribe => [ File['/root/computenodech.sh'], Package['openstack-nova-compute'] ],
 	}

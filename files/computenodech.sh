@@ -1,14 +1,14 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
 novaconf='/etc/nova/nova.conf';
-cont=`echo $@ | awk '{print $1}'`;
-contip=`echo $@ | awk '{print $2}'`;
-uspass=`echo $@ | awk '{print $3}'`;
-CC=`echo $@ | awk '{print $4}'`;
-rabbitpass=`echo $@ | awk '{print $5}'`;
-kvm=`echo $@ | awk '{print $6}'`;
-cat $novaconf | grep $contip &>/dev/null
-if [ $? -ne 0 ]; then
+contip=`echo $@ | awk '{print $1}'`;
+uspass=`echo $@ | awk '{print $2}'`;
+CC=`echo $@ | awk '{print $3}'`;
+rabbitpass=`echo $@ | awk '{print $4}'`;
+kvm=`echo $@ | awk '{print $5}'`;
+echo operands=$@ > tmp2
+cat $novaconf | grep \#COMPUTE\# &>/dev/null
+if [ $? -eq 0 ]; then
  sed -i "s/\$my\_ip/0\.0\.0\.0/g" $novaconf
  sed -i "s/COMPUTEIP/${contip}/g" $novaconf
  sed -i "s/CC/$CC/g" $novaconf

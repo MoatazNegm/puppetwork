@@ -7,7 +7,7 @@ contip=`echo $@ | awk '{print $3}'`;
 uspass=`echo $@ | awk '{print $4}'`;
 CC=`echo $@ | awk '{print $5}'`;
 rabbitpass=`echo $@ | awk '{print $6}'`;
-cat $novaconf | grep $dbpass &>/dev/null
+cat $novaconf | grep $contip &>/dev/null
 if [ $? -ne 0 ]; then
  cp nova.conf $novaconf;
  sed -i "s/DBPASS/${dbpass}/g" $novaconf 

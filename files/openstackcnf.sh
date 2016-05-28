@@ -15,14 +15,18 @@ cat $mariaserver | grep "${p}" &>/dev/null
 if [ $? -ne 0 ]; then 
  sed -i "s/\/var\//\/${p}\/var\//g" $mariaserver
 fi
-mkdir -p /${p}/var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
-chown mysql /${p}/var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
-rm -rf /var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
-ln -s  /${p}/var/lib/mysql /var/lib/mysql
-ln -s  /${p}/var/log/mariadb /var/log/mariadb
-ln -s  /${p}/var/run/mariadb /var/run/mariadb
-mysql_install_db --user=mysql
-pcs resource create mariadb${man} ocf:heartbeat:mysql datadir=/${p}/var/lib/mysql op monitor interval=3s
+ismariad=`pcs resource`
+echo $ismariad | grep mariadb
+if [ $? -ne 0 ]; then
+ mkdir -p /${p}/var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
+ chown mysql /${p}/var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
+ rm -rf /var/{lib/mysql,log/mariadb,run/mariadb} &>/dev/null
+ ln -s  /${p}/var/lib/mysql /var/lib/mysql
+ ln -s  /${p}/var/log/mariadb /var/log/mariadb
+ ln -s  /${p}/var/run/mariadb /var/run/mariadb
+ mysql_install_db --user=mysql
+ pcs resource create mariadb${man} ocf:heartbeat:mysql datadir=/${p}/var/lib/mysql op monitor interval=3s
+fi
 groupitems=`/sbin/pcs resource show ${man}g`;
 echo $groupitems | grep ZFS &>/dev/null
 if [ $? -ne 0 ]; then
