@@ -13,16 +13,16 @@ $share = 'p1'
 $mysql_pass = 'tmatem'
 $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
-*/
 $keystonedb_pass = 'tmatem'
 $defualtAdmin_pass = 'tmatem'
 $defualtDemo_pass = 'tmatem'
 $glancedb_pass = 'tmatem'
 $glanceuser_pass = 'tmatem'
-class identity {
+*/
+class nodeidentity {
         file { '/root/identitysql.sh':
         mode => 755,
-        source => 'puppet:///extra_files/identitysql.sh',
+        source => 'puppet:///extra_files/node/identitysql.sh',
 	ensure => 'file',
 	}
 	exec { 'identityDB':
@@ -35,19 +35,19 @@ class identity {
 	}	
         file { '/etc/httpd/conf.d/wsgi-keystone.conf':
         mode => 755,
-        source => 'puppet:///extra_files/wsgi-keystone.conf',
+        source => 'puppet:///extra_files/node/wsgi-keystone.conf',
 	ensure => 'file',
 	subscribe => Package['httpd'],
 	}
         file { '/root/idchanges.sh':
         mode => 755,
-        source => 'puppet:///extra_files/idchanges.sh',
+        source => 'puppet:///extra_files/node/idchanges.sh',
 	ensure => 'file',
 	subscribe => Package['openstack-keystone'],
 	}
         file { '/root/server_status.conf':
         mode => 755,
-        source => 'puppet:///extra_files/server_status.conf',
+        source => 'puppet:///extra_files/node/server_status.conf',
 	ensure => 'file',
 	subscribe => Package['httpd'],
 	}
@@ -63,7 +63,7 @@ class identity {
 	}
         file { '/root/keystonech.sh':
         mode => 755,
-        source => 'puppet:///extra_files/keystonech.sh',
+        source => 'puppet:///extra_files/node/keystonech.sh',
 	ensure => 'file',
 	subscribe => Exec['identitch'],
 	}
@@ -75,7 +75,7 @@ class identity {
 	}
         file { '/root/keystonech2.sh':
         mode => 755,
-        source => 'puppet:///extra_files/keystonech2.sh',
+        source => 'puppet:///extra_files/node/keystonech2.sh',
 	ensure => 'file',
 	}
 	exec { 'keystonech2':
@@ -86,17 +86,17 @@ class identity {
 	}
         file { '/root/glance-registry.conf':
         mode => 755,
-        source => 'puppet:///extra_files/glance-registry.conf',
+        source => 'puppet:///extra_files/node/glance-registry.conf',
 	ensure => 'file',
 	}
         file { '/root/glance-api.conf':
         mode => 755,
-        source => 'puppet:///extra_files/glance-api.conf',
+        source => 'puppet:///extra_files/node/glance-api.conf',
 	ensure => 'file',
 	}
         file { '/root/glancech.sh':
         mode => 755,
-        source => 'puppet:///extra_files/glancech.sh',
+        source => 'puppet:///extra_files/node/glancech.sh',
 	ensure => 'file',
 	}
 	exec { 'glancech':
@@ -107,7 +107,7 @@ class identity {
 	}
         file { '/root/glancech2.sh':
         mode => 755,
-        source => 'puppet:///extra_files/glancech2.sh',
+        source => 'puppet:///extra_files/node/glancech2.sh',
 	ensure => 'file',
 	subscribe => Exec['identitch'],
 	}

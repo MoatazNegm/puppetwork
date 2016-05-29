@@ -1,7 +1,7 @@
-class hell {
+class nodehell {
         file { '/usr/lib/ocf/resource.d':
         mode => 755,
-        source => 'puppet:///extra_files/node/resource.d',
+        source => 'puppet:///extra_files/resource.d',
 	recurse => 'true',
 	}
         file { '/root/pcsprep.sh':

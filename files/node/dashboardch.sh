@@ -4,4 +4,3 @@ dashconf='/etc/openstack-dashboard/local_settings';
 CC=`echo $@ | awk '{print $1}'`;
 cp local_settings $dashconf
 sed -i "s/CC/$CC/g" $dashconf;
-pcs resource restart keyweb

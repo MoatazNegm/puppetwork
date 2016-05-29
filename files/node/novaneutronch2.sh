@@ -13,25 +13,15 @@ dbpass=`echo $@ | awk '{print $4}'`;
 rabbitpass=`echo $@ | awk '{print $5}'`;
 ether=`echo $@ | awk '{print $6}'`;
 secret=`echo $@ | awk '{print $7}'`;
-echo $@ > neturontmp
-cat $neutronconf | grep $contip &>/dev/null
-if [ $? -ne 0 ]; then
- sed -i "s/CC/$CC/g" $neutronconf
- sed -i "s/RABBITPASS/$rabbitpass/g" $neutronconf
- sed -i "s/NEUTPASS/$uspass/g" $neutronconf
- sed -i "s/ETHER/$ether/g" $bridgeconf
- sed -i "s/CC/$contip/g" $bridgeconf
- sed -i "s/CC/$contip/g" $novaconf
- sed -i "s/NEUTPASS/$uspass/g" $novaconf
+sed -i "s/CC/$CC/g" $neutronconf
+sed -i "s/RABBITPASS/$rabbitpass/g" $neutronconf
+sed -i "s/NEUTPASS/$uspass/g" $neutronconf
+sed -i "s/ETHER/$ether/g" $bridgeconf
+sed -i "s/CC/$contip/g" $bridgeconf
+sed -i "s/CC/$contip/g" $novaconf
+sed -i "s/NEUTPASS/$uspass/g" $novaconf
 
- systemctl restart openstack-nova-compute.service
-fi
-iscontroller=`pcs resource`
-echo $iscontroller | grep neutron
-if [ $? -ne 0 ]; then 
- systemctl enable neutron-linuxbridge-agent.service
- systemctl start neutron-linuxbridge-agent.service
-else
- systemctl restart neutron-linuxbridge-agent.service
-fi
+#systemctl restart openstack-nova-compute.service
+systemctl enable neutron-linuxbridge-agent.service
+#systemctl start neutron-linuxbridge-agent.service
 sysctl -p
