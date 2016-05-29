@@ -14,7 +14,7 @@ $mysql_pass = 'tmatem'
 $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
 # run_what to install what : any thing empty, or 'all' means all to be installed' then : hell identity computeservice computenode neutron novaneutron
-$run_what='dashboard'
+$run_what='once'
 class global_exec_path {
 	Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/', '/root/' ]}
 }
@@ -26,6 +26,20 @@ class toolbox {
 }
 
 node 'centoszfs2c.local.com' {
+	include toolbox
+case $run_what {
+ 	'identity': { include identity }
+	'computeservice': { include compute1 }
+	'computenode': { include computenode }
+	'neutron': { include neutron }
+	'novaneutron': { include novaneutron }
+	'dashboard': { include dashboard }
+	'hell':  { 
+		include hell 
+	}
+	}
+}
+node 'centoszfs1c.local.com' {
 	include toolbox
 case $run_what {
  	'identity': { include identity }
