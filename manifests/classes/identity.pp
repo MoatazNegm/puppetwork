@@ -53,7 +53,7 @@ class identity {
 	}
 	exec { 'identitch':
 	cwd => '/root',
-	command => "/bin/sh idchanges.sh $keystonedb_pass $CC CC",
+	command => "/bin/sh idchanges.sh $keystonedb_pass $CC CC $share",
 	subscribe => [ File['/root/idchanges.sh'], File['/root/server_status.conf'] ],
 	}
         file { '/usr/lib/ocf/resource.d':

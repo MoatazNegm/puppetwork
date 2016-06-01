@@ -76,8 +76,8 @@ Fake attribute that can be changed to cause a reload
 </parameters>
 
 <actions>
-<action name="start"        timeout="200" />
-<action name="stop"         timeout="200" />
+<action name="start"        timeout="200" on-fail="restart" />
+<action name="stop"         timeout="200" on-fail="ignore" />
 <action name="monitor"      timeout="20" interval="10" depth="0" />
 <action name="reload"       timeout="200" />
 <action name="migrate_to"   timeout="20" />
@@ -100,6 +100,10 @@ END
 }
 
 dummy_start() {
+	myhost=`hostname`;
+	myl3id=$(echo "use neutron; select id,host from agents where agents.agent_type='l3 agent';" | mysql -uroot -ptmatem | grep -w $myhost | awk '{print $1}')
+	myid="'"${myl3id}"'";
+	echo "use neutron; UPDATE routerl3agentbindings SET routerl3agentbindings.l3_agent_id=$myid" | mysql -uroot -ptmatem
  	systemctl start neutron-l3-agent.service
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then

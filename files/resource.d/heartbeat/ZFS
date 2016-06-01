@@ -76,8 +76,8 @@ Fake attribute that can be changed to cause a reload
 </parameters>
 
 <actions>
-<action name="start"        timeout="200" />
-<action name="stop"         timeout="200" />
+<action name="start"        timeout="200" on-fail="restart" />
+<action name="stop"         timeout="200"on-fail="ignore" />
 <action name="monitor"      timeout="20" interval="10" depth="0" />
 <action name="reload"       timeout="20" />
 <action name="migrate_to"   timeout="20" />

@@ -24,3 +24,4 @@ chmod 640 $glancereg
 chown root:glance $glancereg
 chown root:glance $glanceapi
 pcsitems=`pcs resource`
+chgrp glance  /etc/glance -R

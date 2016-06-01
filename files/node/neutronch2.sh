@@ -34,3 +34,4 @@ sed -i "s/NEUTPASS/$uspass/g" $novaconf
 sed -i "s/\#NEUTRON\#//g" $novaconf
 ln -s $ml2conf /etc/neutron/plugin.ini
 sysctl -p
+chgrp neutron /etc/neutron -R

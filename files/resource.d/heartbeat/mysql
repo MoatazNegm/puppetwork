@@ -281,8 +281,8 @@ whether a node is usable for clients to read from.</shortdesc>
 </parameters>
 
 <actions>
-<action name="start" timeout="200" />
-<action name="stop" timeout="120" />
+<action name="start" timeout="200" on-fail="restart" />
+<action name="stop" timeout="120" on-fail="ignore" />
 <action name="status" timeout="60" />
 <action name="monitor" depth="0" timeout="30" interval="20" />
 <action name="monitor" role="Master" depth="0" timeout="30" interval="10" />

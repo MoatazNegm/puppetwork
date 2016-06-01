@@ -147,8 +147,8 @@ Location of the file in which the pid will be stored
 </parameters>
 
 <actions>
-<action name="start"        timeout="600" />
-<action name="stop"         timeout="120" />
+<action name="start"        timeout="600" on-fail="restart"/>
+<action name="stop"         timeout="120" on-fail="ignore" />
 <action name="status"       timeout="20" interval="10" />
 <action name="monitor"      timeout="20" interval="10" />
 <action name="validate-all" timeout="30" />

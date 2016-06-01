@@ -10,6 +10,7 @@ cat $keyconf | grep $pass &>/dev/null
 if [ $? -ne 0 ]; then
  sed -i "/admin_token \=/c\admin_token \= $token" $keyconf
  sed -i "/provider \=/c\provider \= fernet" $keyconf
+sed -i "/key\_repository \=/c\key\_repository \= \/${p}\/etc\/keystone\/fernet\-keys\/" $keyconf
  sed -i "/connection \=/c\connection \= mysql\+pymysql\:\/\/keystone\:$pass@$cont\/keystone" $keyconf
  su -s /bin/sh -c "keystone-manage db_sync" keystone;
  keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone;

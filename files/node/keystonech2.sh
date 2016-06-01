@@ -21,3 +21,4 @@ echo export OS_PASSWORD=$pass2 >> demo-openrc
 echo export OS_AUTH_URL=http://$cont:5000/v3 >> demo-openrc
 echo export OS_IDENTITY_API_VERSION=3 >> demo-openrc
 echo export OS_IMAGE_API_VERSION=2 >> demo-openrc
+chgrp keystone /etc/keystone -R
