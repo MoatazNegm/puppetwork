@@ -11,10 +11,11 @@ echo $resources | /bin/grep -v ${man}g | /bin/grep $man &>/dev/null
 if [ $? -ne 0 ]; then
  /sbin/pcs resource create $man ocf:heartbeat:IPaddr2 ip=$ipaddr nic=$eth cidr_netmask=$netm op monitor interval=5s
  /sbin/pcs resource group add ${man}g $man
- /sbin/pcs constraint location ${man}g prefers $node1=100
- /sbin/pcs constraint location ${man}g prefers $node2=10
+# /sbin/pcs constraint location ${man}g prefers $node1=100
+# /sbin/pcs constraint location ${man}g prefers $node2=10
 fi
 echo $hostss | /bin/grep $man &>/dev/null
 if [ $? -ne 0 ]; then
  echo $ipaddr $man ${man}.local.com >> /etc/hosts
 fi
+/sbin/pcs property set start-failure-is-fatal=false

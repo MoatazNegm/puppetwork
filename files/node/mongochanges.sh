@@ -9,3 +9,13 @@ cat $mongo | grep $p &>/dev/null
 if [ $? -ne 0 ]; then
  sed -i "s/\/var\//\/${p}\/var\//g" $mongo
 fi
+myhost=`hostname`;
+pcsg=`pcs resource`;
+echo $pcsg | grep mongo_${myhost}
+if [ $? -ne 0 ]; then
+ pcs resource create mongo_${myhost} ocf:heartbeat:mongodb
+ pcs constraint order iscsizfs then mongo_${myhost}
+ pcs resource group add ${myhost}g mongo_$myhost
+fi
+#systemctl enable mongod.service
+#systemctl start mongod.service
