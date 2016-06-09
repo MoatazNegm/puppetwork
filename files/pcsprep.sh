@@ -19,3 +19,5 @@ if [ $? -ne 0 ]; then
  echo $ipaddr $man ${man}.local.com >> /etc/hosts
 fi
 /sbin/pcs property set start-failure-is-fatal=false
+/sbin/pcs resource defaults resource-stickiness=100
+/sbin/pcs resource meta ${man}g resource-stickiness=100

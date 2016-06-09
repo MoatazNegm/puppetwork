@@ -25,18 +25,23 @@ pcsitems=`pcs resource`
 echo $pcsitems | grep nova &>/dev/null
 if [ $? -ne 0 ]; then
  pcs resource create novaapi ocf:heartbeat:novaapi op monitor interval=1min
+ pcs resource clone novaapi
  pcs resource create novaconsole ocf:heartbeat:novaconsole op monitor interval=1min
+ pcs resource clone novaconsole
  pcs resource create novasched ocf:heartbeat:novasched op monitor interval=1min
+ pcs resource clone novasched
  pcs resource create novacond ocf:heartbeat:novacond op monitor interval=1min
+ pcs resource clone novacond
  pcs resource create novavnc ocf:heartbeat:novavnc op monitor interval=1min
- pcs resource group add ${cont}g novaapi
- pcs resource group add ${cont}g novaconsole
- pcs resource group add ${cont}g novasched
- pcs resource group add ${cont}g novacond
- pcs resource group add ${cont}g novavnc
- pcs constraint order glance then novaapi
- pcs constraint order glance then novaconsole
- pcs constraint order glance then novasched
- pcs constraint order glance then novacond
- pcs constraint order glance then novavnc
+ pcs resource clone novavnc
+# pcs resource group add ${cont}g novaapi
+# pcs resource group add ${cont}g novaconsole
+# pcs resource group add ${cont}g novasched
+# pcs resource group add ${cont}g novacond
+# pcs resource group add ${cont}g novavnc
+# pcs constraint order glance then novaapi
+ pcs constraint order novaapi-clone then novaconsole-clone
+ pcs constraint order novaapi-clone then novasched-clone
+ pcs constraint order novaapi-clone then novacond-clone
+ pcs constraint order novaapi-clone  then novavnc-clone
 fi

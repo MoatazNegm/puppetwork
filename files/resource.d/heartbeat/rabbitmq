@@ -1,10 +1,10 @@
 #!/bin/sh
 #
 #
-#	zfsping check about every iscsi target if it is alive or not. 
-#	then it brings up or down the corresponding zfs disk for the proper pool.
+#	Dummy OCF RA. Does nothing but wait a few seconds, can be
+#	configured to fail occassionally.
 #
-# Copyright (c) 2004 SUSE LINUX AG, Lars Marowsky-BrÃ©e
+# Copyright (c) 2004 SUSE LINUX AG, Lars Marowsky-Brée
 #                    All Rights Reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -39,16 +39,22 @@ meta_data() {
 	cat <<END
 <?xml version="1.0"?>
 <!DOCTYPE resource-agent SYSTEM "ra-api-1.dtd">
-<resource-agent name="zfsping" version="0.9">
+<resource-agent name="Dummy" version="0.9">
 <version>1.0</version>
 
 <longdesc lang="en">
-zfsping check about every iscsi target if it is alive or not. 
-then it brings up or down the corresponding alive service.
-and then to remove or add all corresponding iscsi luns from all zpools. 
-both the ping and alive services should be in the same host that is owning the zpool as initiator.. i.e. all in the same group
+This is a Dummy Resource Agent. It does absolutely nothing except 
+keep track of whether its running or not.
+Its purpose in life is for testing and to serve as a template for RA writers.
+
+NB: Please pay attention to the timeouts specified in the actions
+section below. They should be meaningful for the kind of resource
+the agent manages. They should be the minimum advised timeouts,
+but they shouldn't/cannot cover _all_ possible resource
+instances. So, try to be neither overly generous nor too stingy,
+but moderate. The minimum timeouts should never be below 10 seconds.
 </longdesc>
-<shortdesc lang="en">zfs ping for iscsi tagets resource agent </shortdesc>
+<shortdesc lang="en">Example stateless resource agent</shortdesc>
 
 <parameters>
 <parameter name="state" unique="1">
@@ -67,22 +73,13 @@ Fake attribute that can be changed to cause a reload
 <content type="string" default="dummy" />
 </parameter>
 
-<parameter name="servers" unique="0">
-<longdesc lang="en">
-servers list (IP or name) that will be pinged
-</longdesc>
-<shortdesc lang="en">servers list</shortdesc>
-<content type="string" default="000000" />
-</parameter>
-
 </parameters>
 
-
 <actions>
-<action name="start"        timeout="20" on-fail="restart" />
-<action name="stop"         timeout="20" on-fail="ignore" />
-<action name="monitor"      timeout="200" interval="10" depth="0" />
-<action name="reload"       timeout="20" />
+<action name="start"        timeout="200" on-fail="restart" />
+<action name="stop"         timeout="200" on-fail="ignore" />
+<action name="monitor"      timeout="20" interval="10" depth="0" />
+<action name="reload"       timeout="200" />
 <action name="migrate_to"   timeout="20" />
 <action name="migrate_from" timeout="20" />
 <action name="meta-data"    timeout="5" />
@@ -103,6 +100,7 @@ END
 }
 
 dummy_start() {
+	systemctl start rabbitmq-server
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	return $OCF_SUCCESS
@@ -111,6 +109,7 @@ dummy_start() {
 }
 
 dummy_stop() {
+	systemctl stop rabbitmq-server
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	rm ${OCF_RESKEY_state}
@@ -122,9 +121,7 @@ dummy_monitor() {
 	# Monitor _MUST!_ differentiate correctly between running
 	# (SUCCESS), failed (ERROR) or _cleanly_ stopped (NOT RUNNING).
 	# That is THREE states, not just yes/no.
-        sh /pace/zfsping.sh	
-        
-        touch ${OCF_RESKEY_state}
+	
 	if [ -f ${OCF_RESKEY_state} ]; then
 	    return $OCF_SUCCESS
 	fi

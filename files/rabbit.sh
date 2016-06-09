@@ -7,7 +7,9 @@ ip=`echo $@ | awk '{print $4}'`
 pcsitems=`pcs resource`
 echo $pcsitems | grep rabbit
 if [ $? -ne 0 ]; then
- pcs resource create rabbitserver ocf:rabbitmq:rabbitmq-server nodename=rabbitmq@$node config_file=/etc/rabbitmq/rabbitmq ip=$ip op monitor interval=3s
+ echo RABBITMQ_NODENAME=rabbitmq@$node > /etc/rabbitmq/rabbitmq-env.conf
+ echo RABBITMQ_NODE_IP_ADDRESS=$ip >> /etc/rabbitmq/rabbitmq-env.conf
+ pcs resource create rabbitserver ocf:heartbeat:rabbitmq op monitor interval=3s
  pcs constraint order iscsizfs then rabbitserver
  pcs resource group add ${node}g rabbitserver
 #systemctl enable rabbitmq-server.service 

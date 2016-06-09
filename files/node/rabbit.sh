@@ -6,6 +6,9 @@ node=`echo $@ | awk '{print $3}'`
 ip=`echo $@ | awk '{print $4}'`
 pcsitems=`pcs resource`
 #systemctl enable rabbitmq-server.service 
+echo RABBITMQ_NODENAME=rabbitmq@$node > /etc/rabbitmq/rabbitmq-env.conf
+echo RABBITMQ_NODE_IP_ADDRESS=$ip >> /etc/rabbitmq/rabbitmq-env.conf
+
 systemctl start rabbitmq-server.service
 while [ $i -ne 0 ]; do
  sleep 1
@@ -19,3 +22,4 @@ while [ $i -ne 0 ]; do
 done
 systemctl enable memcached.service 
 systemctl start memcached.service
+systemctl stop rabbitmq-server.service
