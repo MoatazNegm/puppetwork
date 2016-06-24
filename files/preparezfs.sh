@@ -22,6 +22,7 @@ if [ $? -ne 0 ]; then
  echo rm -rf /var/lib/iscsi/send_targets/* >> /etc/rc.local
  echo rm -rf /var/lib/iscsi/nodes/* >> /etc/rc.local
  echo sh /pace/iscsienable.sh >> /etc/rc.local
+ echo sh /pace/iscsirefresh.sh >> /etc/rc.local
  chmod 774 /etc/rc.local
  touch /pacedata/iscsitargets
 fi

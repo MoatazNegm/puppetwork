@@ -11,6 +11,7 @@ if [ $? -ne 0 ]; then
  /sbin/pcs resource create ZFS_cluster ocf:heartbeat:ZFS op monitor interval=5s on-fail=ignore
  i=100;
  didit=0
+ /sbin/pcs resource cleanup ZFS_cluster
  while [ $i -ne 0 ]; do 
   sleep 1;
   i=$((i-1));
