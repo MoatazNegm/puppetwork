@@ -53,7 +53,13 @@ case $run_what {
 	}
 	}
 }
-node 'labtop' {
+node 'hyper' {
+	include toolbox
+case $run_what {
+	'scratch': { include scratch }
+}
+}
+node 'topstorlin' {
 	include toolbox
 case $run_what {
 	'scratch': { include scratch }

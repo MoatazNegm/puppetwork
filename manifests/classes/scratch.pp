@@ -1,13 +1,26 @@
-$nodelab="labtop"
+$nodelab="topstorlin"
 class scratch {
-	package { [ "expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
-	ensure => "installed",
-	}
         file { ['/root/preparezfs.sh']:
         mode => 755,
         source => 'puppet:///extra_files/preparezfs.sh',
 	ensure => 'file',
+	notify => Exec['preparezfs'],
 	}
+	exec { 'preparezfs':
+	cwd => '/root',
+	command => "/bin/sh preparezfs.sh ",
+	timeout => 20000000,
+	refreshonly=>true,
+	}
+	package { [ "expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
+	ensure => "installed",
+	require => Exec['preparezfs'],
+	}
+	exec { "done":
+	command => "/bin/true",
+	refreshonly => true,
+	}
+	
         file { ['/root/preparepcs.sh']:
         mode => 755,
         source => 'puppet:///extra_files/preparepcs.sh',
@@ -26,21 +39,16 @@ class scratch {
 	exec { 'preparepace':
 	cwd => '/root',
 	command => "/bin/sh preparepace.sh ",
-	subscribe => [ File['/root/preparepace.sh'], Package["git"] ],
+	require => [ File['/root/preparepace.sh'], Package["pcs"], Package['pacemaker'], Package['git'] ],
 	}
 	exec { 'prepareiscsi':
 	cwd => '/root',
-	command => "/bin/sh prepareiscsi.sh ",
-	subscribe => [ File['/root/prepareiscsi.sh'], Package["targetcli"], Package["iscsi-initiator-utils"] ],
+	command => "/bin/sh prepareiscsi.sh $nodelab",
+	require => [ Exec['preparepace'], File['/root/prepareiscsi.sh'], Package["targetcli"], Package['iscsi-initiator-utils']  ],
 	}
 	exec { 'preparepcs':
 	cwd => '/root',
 	command => "/bin/sh preparepcs.sh $nodelab",
-	subscribe => [ File['/root/preparepcs.sh'], Package["pacemaker"] ],
-	}
-	exec { 'preparezfs':
-	cwd => '/root',
-	command => "/bin/sh preparezfs.sh ",
-	subscribe => File['/root/preparezfs.sh'],
+	require => [ File['/root/preparepcs.sh'], Package['expect'], Package['pcs'], Package['pacemaker'] ],
 	}
 }

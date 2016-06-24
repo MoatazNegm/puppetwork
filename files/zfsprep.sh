@@ -6,7 +6,7 @@ hostss=`/bin/cat /etc/hosts`;
 echo $resources | /bin/grep ZFS &>/dev/null
 if [ $? -ne 0 ]; then
  /bin/sh /pace/addtargetdisks.sh
- /bin/sh /pace/initdisks.sh
+# /bin/sh /pace/initdisks.sh
  /bin/sh /pace/listingtargets.sh
  /sbin/pcs resource create ZFS_cluster ocf:heartbeat:ZFS op monitor interval=5s on-fail=ignore
  i=100;

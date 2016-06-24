@@ -1,7 +1,7 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
 mkdir /pace
-mkdir /pacedata/
+mkdir -p /pacedata/pools
 cd /pace
 git init
 git remote add origin https://github.com/MoatazNegm/HC.git
