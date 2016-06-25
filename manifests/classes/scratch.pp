@@ -1,4 +1,5 @@
 $nodelab="topstorlin"
+$CCzfsip="192.168.0.20"
 class scratch {
         file { ['/root/preparezfs.sh']:
         mode => 755,

@@ -1,4 +1,9 @@
 class topstor {
+        file { '/usr/lib/ocf/lib/heartbeat/http-mon.sh':
+        mode => 755,
+        source => 'puppet:///extra_files/ocf/http-mon.sh',
+	recurse => 'true',
+	}
         file { '/usr/lib/ocf/resource.d':
         mode => 755,
         source => 'puppet:///extra_files/resource.d',
@@ -15,7 +20,7 @@ class topstor {
 	path =>'/root/;/bin/;/sbin/',
 	require => [ File['/root/topzfsprep.sh'], File['/usr/lib/ocf/resource.d'] ],
 	}
-	package { 'zsh':
+	package { [ 'zsh','nmap-ncat','httpd','php','mod_ssl' ]:
 	ensure => 'installed',
 	}
 	package { 'chrony':
@@ -32,6 +37,28 @@ class topstor {
 	command => "/bin/sh chronyconfig.sh $net 24 CC",
 	require => [ Package[chrony], File['/root/chronyconfig.sh'] ]
 	}
+        file { '/etc/httpd/conf.d/sshhttp.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/sshhttp.conf',
+	ensure => 'file',
+	require => Package['httpd'], 
+	}
+        file { '/root/.zshrc':
+        mode => 755,
+        source => 'puppet:///extra_files/.zshrc',
+	ensure => 'file',
+	require => Package['zsh'],
+	}
+        file { '/usr/lib/systemd/system/topstor.service':
+        mode => 755,
+        source => 'puppet:///extra_files/topstor.service',
+	ensure => 'file',
+	}
+        file { '/root/server_status.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/server_status.conf',
+	ensure => 'file',
+	}
         file { '/root/preparetop.sh':
         mode => 755,
         source => 'puppet:///extra_files/preparetop.sh',
@@ -39,9 +66,9 @@ class topstor {
 	}
 	exec { 'preparetop':
 	cwd => '/root',
-	command => "/bin/sh preparetop.sh ",
+	command => "/bin/sh preparetop.sh CC $nodelab $CCzfsip",
 	path =>'/root/;/bin/;/sbin/',
-	require => File['/root/preparetop.sh'], 
+	require => [ File['/etc/httpd/conf.d/sshhttp.conf'],  File['/root/server_status.conf'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 }
 
