@@ -13,7 +13,7 @@ $share = 'p1'
 $mysql_pass = 'tmatem'
 $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
-# run_what to install what : any thing empty, or 'all' means all to be installed' then : hell identity computeservice computenode neutron novaneutron dashboard
+# run_what to install what : any thing empty, or 'all' means all to be installed' then : hell identity computeservice computenode neutron novaneutron dashboard # for zfs run scratch and topstor
 $run_what='topstor'
 class global_exec_path {
 	Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/', '/root/' ]}

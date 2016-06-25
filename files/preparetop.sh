@@ -4,8 +4,10 @@ httpd='/etc/httpd/conf/httpd.conf';
 man=`echo $@ | awk '{print $1}'`
 node=`echo $@ | awk '{print $2}'`
 manip=`echo $@ | awk '{print $3}'`
+eth=`echo $@ | awk '{print $4}'`
+netm=`echo $@ | awk '{print $5}'`
 mkdir /var/www/html/des20 2>/dev/null
-mkdir /TopStora 2>/dev/null
+mkdir /TopStor 2>/dev/null
 mkdir /TopStordata 2>/dev/null
 pcsitems=`pcs resource`
 cd /TopStor
@@ -16,6 +18,7 @@ if [ $? -ne 0 ]; then
  git checkout -b centos
  git pull origin centos
  ln -s /bin/zsh /usr/local/bin/
+ chown apache /Topstor/key -R
 fi
 echo $pcsitems | grep TopStor >/dev/null
 if [ $? -ne 0 ]; then
@@ -40,3 +43,9 @@ if [ $? -ne 0 ]; then
  pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://127.0.0.1/server-status" op monitor interval=1min
  pcs resource group add ${man}g keyweb
 fi
+systemctl enable topstor.service
+systemctl start topstor.service
+systemctl enable pcsfix.service
+systemctl start pcsfix.service
+systemctl enable smb.service
+systemctl start smb.service
