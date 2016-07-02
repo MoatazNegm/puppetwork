@@ -35,10 +35,10 @@ if [ $? -ne 0 ]; then
  chown apache Data -R
 fi
 
+sed -i "s/HOST/$manip/g" /etc/httpd/conf.d/sshhttp.conf
 echo $pcsitems | grep keyweb
 if [ $? -ne 0 ]; then
  sed -i "/ServerName www/c\ServerName $node "  $httpd
- sed -i "s/HOST/$manip/g" /etc/httpd/conf.d/sshhttp.conf
  cp /root/server_status.conf /etc/httpd/conf.d/ ;
  pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://127.0.0.1/server-status" op monitor interval=1min
  pcs resource group add ${man}g keyweb
@@ -49,3 +49,13 @@ systemctl enable pcsfix.service
 systemctl start pcsfix.service
 systemctl enable smb.service
 systemctl start smb.service
+mkdir /var/nfsshare 2>/dev/null
+chmod -R 777 /var/nfsshare/ 
+systemctl enable rpcbind
+systemctl enable nfs-server
+systemctl enable nfs-idmap
+systemctl enable nfs-lock
+systemctl start rpcbind
+systemctl start nfs-server
+systemctl start nfs-idmap
+systemctl start nfs-lock

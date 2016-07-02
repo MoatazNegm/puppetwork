@@ -59,7 +59,7 @@ case $run_what {
 	'scratch': { include scratch }
 }
 }
-node 'topstorlin' {
+node 'topstor2lin' {
 	include toolbox
 case $run_what {
 	'scratch': { include scratch }

@@ -20,7 +20,7 @@ class topstor {
 	path =>'/root/;/bin/;/sbin/',
 	require => [ File['/root/topzfsprep.sh'], File['/usr/lib/ocf/resource.d'] ],
 	}
-	package { [ 'ntp','ntpdate','sssd','oddjob-mkhomedir','oddjob','samba-common','realmd','samba','samba-client','zsh','nmap-ncat','httpd','php','mod_ssl' ]:
+	package { [ 'nfs-utils','ntp','ntpdate','sssd','oddjob-mkhomedir','oddjob','samba-common','realmd','samba','samba-client','zsh','nmap-ncat','httpd','php','mod_ssl' ]:
 	ensure => 'installed',
 	}
 	package { 'chrony':
@@ -73,7 +73,7 @@ class topstor {
 	cwd => '/root',
 	command => "/bin/sh preparetop.sh CC $nodelab $CCzfsip $CCzfseth $CCzfsnetm",
 	path =>'/root/;/bin/;/sbin/',
-	require => [ Package ['samba'], File['/etc/httpd/conf.d/sshhttp.conf'],  File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
+	require => [ Package['nfs-utils'], Package ['samba'], File['/etc/httpd/conf.d/sshhttp.conf'],  File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 }
 

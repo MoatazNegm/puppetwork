@@ -1,5 +1,5 @@
-$nodelab="topstorlin"
-$CCzfsip="192.168.0.22"
+$nodelab="topstor2lin"
+$CCzfsip="192.168.0.33"
 $CCzfsnetm="24"
 $CCzfseth="enp0s9"
 class scratch {
