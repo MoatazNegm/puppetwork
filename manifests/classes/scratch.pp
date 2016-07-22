@@ -15,7 +15,7 @@ class scratch {
 	timeout => 20000000,
 	refreshonly=>true,
 	}
-	package { [ "expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
+	package { [ "collectl","expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
 	ensure => "installed",
 	require => Exec['preparezfs'],
 	}

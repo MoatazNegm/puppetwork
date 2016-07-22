@@ -1,0 +1,11 @@
+[Unit]
+Description=TopStor remoteservice
+After=chronyd.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/topstorremote.pid
+ExecStart=/bin/setsid /TopStor/Topstorremote.sh
+
+[Install]
+WantedBy=multi-user.target

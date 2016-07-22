@@ -66,3 +66,10 @@ case $run_what {
 	'topstor': { include topstor }
 }
 }
+node 'topstorlin' {
+	include toolbox
+case $run_what {
+	'scratch': { include scratch }
+	'topstor': { include topstor }
+}
+}

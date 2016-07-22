@@ -1,4 +1,9 @@
 class topstor {
+        file { '/etc/collectl.conf':
+        mode => 755,
+        source => 'puppet:///extra_files/collectl.conf',
+	recurse => 'true',
+	}
         file { '/usr/lib/ocf/lib/heartbeat/http-mon.sh':
         mode => 755,
         source => 'puppet:///extra_files/ocf/http-mon.sh',
@@ -48,6 +53,16 @@ class topstor {
         source => 'puppet:///extra_files/.zshrc',
 	ensure => 'file',
 	require => Package['zsh'],
+	}
+        file { '/usr/lib/systemd/system/topstorremoteack.service':
+        mode => 755,
+        source => 'puppet:///extra_files/topstorremoteack.service',
+	ensure => 'file',
+	}
+        file { '/usr/lib/systemd/system/topstorremote.service':
+        mode => 755,
+        source => 'puppet:///extra_files/topstorremote.service',
+	ensure => 'file',
 	}
         file { '/usr/lib/systemd/system/pcsfix.service':
         mode => 755,
