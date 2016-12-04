@@ -1,6 +1,7 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
-node=`echo $@ | awk '{print $1}'`
+#node=`echo $@ | awk '{print $1}'`
+node=`hostname -s`
 systemctl enable target
 echo InitiatorName=iqn.1994-05.com.redhat:$node > /etc/iscsi/initiatorname.iscsi
 #/pace/iscsienable.sh

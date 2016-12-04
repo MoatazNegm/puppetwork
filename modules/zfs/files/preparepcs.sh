@@ -1,6 +1,7 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
-node=`echo $@ | awk '{print $1}'`
+#node=`echo $@ | awk '{print $1}'`
+node=`hostname -s`
 systemctl start pcsd
 systemctl enable pcsd 
 secureha=$(expect -c "

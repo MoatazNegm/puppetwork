@@ -1,0 +1,11 @@
+[Unit]
+Description=TopStor localservice
+After=chronyd.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/topstor.pid
+ExecStart=/bin/setsid /TopStor/Topstor.sh
+
+[Install]
+WantedBy=multi-user.target

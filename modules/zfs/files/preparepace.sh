@@ -10,4 +10,10 @@ if [ $? -ne 0 ]; then
  git fetch
  git checkout -b openstack
  git pull origin openstack
+ hostname=`hostname -s`
+ hostip=`host $hostname | awk '{print $4}'`
+ echo $hostip $hostname > /pacedata/iscsitargets
+ echo $hostip $hostname > /pace/iscsitargets
 fi
+ echo $hostip $hostname > /pace/iscsitargets
+
