@@ -79,7 +79,7 @@ servers list (IP or name) that will be pinged
 
 
 <actions>
-<action name="start"        timeout="20" on-fail="restart" />
+<action name="start"        timeout="20" on-fail="ignore" />
 <action name="stop"         timeout="20" on-fail="ignore" />
 <action name="monitor"      timeout="200" interval="10" depth="0" />
 <action name="reload"       timeout="20" />
@@ -103,8 +103,7 @@ END
 }
 
 dummy_start() {
-    /pace/iscsienable.sh
-    /pace/iscsiresfresh.sh
+    sh /pace/startzfs.sh
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	return $OCF_SUCCESS
