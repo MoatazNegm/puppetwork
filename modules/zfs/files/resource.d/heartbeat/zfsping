@@ -105,6 +105,7 @@ END
 dummy_start() {
     /pace/iscsienable.sh
     /pace/iscsiresfresh.sh
+    /pace/startzfs.sh
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	return $OCF_SUCCESS
