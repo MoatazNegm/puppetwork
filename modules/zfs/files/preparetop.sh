@@ -13,6 +13,8 @@ pcsitems=`pcs resource`
 cd /TopStor
  sed -i "/SELINUX\=/c\SELINUX\=disabled" /etc/selinux/config 
  setenforce 0
+systemctl stop firewalld
+systemct disable firewalld
 git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
@@ -35,7 +37,6 @@ if [ $? -ne 0 ]; then
  git checkout -b centos
  git pull origin centos
  chown apache Data -R
- rm -rf Data/*
 fi
 
 sed -i "s/HOST/$manip/g" /etc/httpd/conf.d/sshhttp.conf

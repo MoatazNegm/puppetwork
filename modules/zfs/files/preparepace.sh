@@ -7,7 +7,7 @@ if [ $? -ne 0 ]; then
  cd /pace
  git init
  git remote add origin https://github.com/MoatazNegm/HC.git
- git fetch
+ git fetch origin
  git checkout -b openstack
  git pull origin openstack
  hostname=`hostname -s`
@@ -15,5 +15,4 @@ if [ $? -ne 0 ]; then
  echo $hostip $hostname > /pacedata/iscsitargets
  echo $hostip $hostname > /pace/iscsitargets
 fi
- echo $hostip $hostname > /pace/iscsitargets
 

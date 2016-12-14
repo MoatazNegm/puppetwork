@@ -15,7 +15,7 @@ $rabbit_user = 'openstack'
 $rabbit_pass = 'tmatem'
 # run_what to install what : any thing empty, or 'all' means all to be installed' then : hell identity computeservice computenode neutron novaneutron dashboard # for zfs run scratch and topstor
 $run_what='scratch'
-node /^zfs\d+$/ {
+node /^(zfs|dhcp)(\S|\d)+$/ {
 case $run_what {
 	'scratch': { class { 'zfs': } }
 }
