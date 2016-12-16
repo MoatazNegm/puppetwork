@@ -1,5 +1,7 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
+hostname=`hostname -s`
+hostip=`host $hostname | awk '{print $4}'`
 ls -lisah /  | grep pace
 if [ $? -ne 0 ]; then
  mkdir /pace
@@ -10,9 +12,8 @@ if [ $? -ne 0 ]; then
  git fetch origin
  git checkout -b openstack
  git pull origin openstack
- hostname=`hostname -s`
- hostip=`host $hostname | awk '{print $4}'`
  echo $hostip $hostname > /pacedata/iscsitargets
  echo $hostip $hostname > /pace/iscsitargets
 fi
+ echo $hostip $hostname >> /etc/hosts
 

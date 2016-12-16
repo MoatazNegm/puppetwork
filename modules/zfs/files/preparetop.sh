@@ -6,6 +6,7 @@ node=`echo $@ | awk '{print $2}'`
 manip=`echo $@ | awk '{print $3}'`
 eth=`echo $@ | awk '{print $4}'`
 netm=`echo $@ | awk '{print $5}'`
+hostname=`hostname -s`
 mkdir /var/www/html/des20 2>/dev/null
 mkdir /TopStor 2>/dev/null
 mkdir /TopStordata 2>/dev/null
@@ -14,15 +15,17 @@ cd /TopStor
  sed -i "/SELINUX\=/c\SELINUX\=disabled" /etc/selinux/config 
  setenforce 0
 systemctl stop firewalld
-systemct disable firewalld
+systemctl disable firewalld
 git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
  git remote add origin https://github.com/MoatazNegm/TopStordev.git
+ git fetch origin
  git checkout -b centos
  git pull origin centos
  ln -s /bin/zsh /usr/local/bin/
- chown apache /Topstor/key -R
+ chown apache /TopStor/key -R
+ echo $hostname > /TopStordata/hostname
 fi
 echo $pcsitems | grep TopStor >/dev/null
 if [ $? -ne 0 ]; then
