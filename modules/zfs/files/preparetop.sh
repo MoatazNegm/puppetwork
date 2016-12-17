@@ -51,17 +51,17 @@ if [ $? -ne 0 ]; then
  pcs resource create keyweb ocf:heartbeat:apache  op monitor interval=1min
  pcs resource group add ${man}g keyweb
 fi
-systemctl enable collectl
+#systemctl enable collectl
 systemctl enable topstor.service
 systemctl enable topstorremote.service
 systemctl enable topstorremoteack.service
-systemctl start collectl
+#systemctl start collectl
 systemctl start topstor.service
 systemctl start topstorremote.service
 systemctl start topstorremoteack.service
 systemctl enable pcsfix.service
 systemctl start pcsfix.service
-systemctl enable smb.service
+#systemctl enable smb.service
 systemctl start smb.service
 mkdir /var/nfsshare 2>/dev/null
 chmod -R 777 /var/nfsshare/ 
