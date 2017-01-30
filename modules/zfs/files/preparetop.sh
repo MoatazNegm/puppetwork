@@ -19,7 +19,8 @@ systemctl disable firewalld
 git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
- git remote add origin https://github.com/MoatazNegm/TopStordev.git
+# git remote add origin https://github.com/MoatazNegm/TopStordev.git
+ git remote add origin http://localrepo/TopStordev.git
  git fetch origin
  git checkout -b centos
  git pull origin centos
@@ -36,7 +37,8 @@ cd /var/www/html/des20
 git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
- git remote add origin https://github.com/MoatazNegm/TopStorweb.git
+# git remote add origin https://github.com/MoatazNegm/TopStorweb.git
+ git remote add origin http://localrepo/TopStorweb.git
  git checkout -b centos
  git pull origin centos
  chown apache Data -R

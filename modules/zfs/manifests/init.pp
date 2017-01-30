@@ -3,6 +3,7 @@ $nodelab="usbdummy",
 $cczfsip="10.11.11.244",
 $cczfsnetm="24",
 $cczfseth="enp0s8",
+$cczfsinitip="10.11.11.254",
 )
 { 
  	notify { "starting zfs": }
@@ -79,7 +80,7 @@ $cczfseth="enp0s8",
 	}
 	exec { 'preparepcs':
 	cwd => '/root',
-	command => "/bin/sh preparepcs.sh $node1",
+	command => "/bin/sh preparepcs.sh $cczfseth $cczfsnetm $cczfsinitip ",
 	require => [ File['/root/preparepcs.sh'], Package['expect'], Package['pcs'], Package['pacemaker'] ],
 	}
 	notify { "finished scratch": }

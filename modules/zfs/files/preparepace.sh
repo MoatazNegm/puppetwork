@@ -8,7 +8,8 @@ if [ $? -ne 0 ]; then
  mkdir -p /pacedata/pools
  cd /pace
  git init
- git remote add origin https://github.com/MoatazNegm/HC.git
+# git remote add origin https://github.com/MoatazNegm/HC.git
+ git remote add origin http://localrepo/HC.git
  git fetch origin
  git checkout -b openstack
  git pull origin openstack

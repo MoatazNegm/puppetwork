@@ -1,5 +1,5 @@
 [localrepo]
 name=Unixmen Repository
-baseurl=ftp://localrepo.localdomain/pub/localrepo
+baseurl=ftp://localrepo/pub/localrepo
 gpgcheck=0
 enabled=1
