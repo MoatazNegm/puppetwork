@@ -10,9 +10,10 @@ if [ $? -ne 0 ]; then
  git init
 # git remote add origin https://github.com/MoatazNegm/HC.git
  git remote add origin http://localrepo/HC.git
+ git remote add origin2 http://github.com/MoatazNegm/HC.git
  git fetch origin
- git checkout -b openstack
- git pull origin openstack
+ git checkout -b newweb
+ git pull origin newweb
  echo $hostip $hostname > /pacedata/iscsitargets
  echo $hostip $hostname > /pace/iscsitargets
 fi

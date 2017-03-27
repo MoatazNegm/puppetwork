@@ -21,9 +21,10 @@ if [ $? -ne 0 ]; then
  git init
 # git remote add origin https://github.com/MoatazNegm/TopStordev.git
  git remote add origin http://localrepo/TopStordev.git
+ git remote add origin2 http://github.com/MoatazNegm/TopStordev.git
  git fetch origin
- git checkout -b centos
- git pull origin centos
+ git checkout -b newweb
+ git pull origin newweb
  ln -s /bin/zsh /usr/local/bin/
  chown apache /TopStor/key -R
  echo $hostname > /TopStordata/hostname
@@ -39,8 +40,9 @@ if [ $? -ne 0 ]; then
  git init
 # git remote add origin https://github.com/MoatazNegm/TopStorweb.git
  git remote add origin http://localrepo/TopStorweb.git
- git checkout -b centos
- git pull origin centos
+ git remote add origin2 http://github.com/MoatazNegm/TopStorweb.git
+ git checkout -b newweb
+ git pull origin newweb
  chown apache Data -R
 fi
 

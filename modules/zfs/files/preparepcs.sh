@@ -11,9 +11,9 @@ secureha=$(expect -c "
 set timeout 10
 spawn passwd hacluster
 expect \"New password:\"
-send \"YousefNadody\r\"
+send \"Abdoadmin\r\"
 expect \"Retype new passowrd:\"
-send \"YousefNadody\r\"
+send \"Abdoadmin\r\"
 expect eof
 ")
 echo $secureha
@@ -22,7 +22,7 @@ spawn pcs cluster auth $node
 expect \"Username:\"
 send \"hacluster\r\"
 expect \"Password:\"
-send \"YousefNadody\r\"
+send \"Abdoadmin\r\"
 expect eof
 ")
 pcs cluster setup --name ha_cluster $node
