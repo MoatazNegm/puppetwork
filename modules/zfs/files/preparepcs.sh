@@ -30,6 +30,6 @@ pcs cluster start --all
 pcs cluster enable --all
 pcs status cluster
 pcs status corosync
-echo "@reboot sleep 120 && /sbin/pcs resource delete --force IPinit && /sbin/ip addr del ${initip}/${netm} dev $eth" > /root/cronfile
+echo "@reboot sleep 120 && /sbin/pcs resource delete --force IPinit && /sbin/ip addr del ${initip}/${netm} dev $eth && /TopStor/factory.sh" > /root/cronfile
 crontab /root/cronfile
 
