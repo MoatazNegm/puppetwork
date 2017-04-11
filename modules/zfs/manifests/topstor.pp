@@ -50,6 +50,12 @@ class zfs::topstor inherits zfs
 	ensure => 'file',
 	require => Package['httpd'], 
 	}
+        file { '/etc/php.ini':
+        mode => '755',
+        source => 'puppet:///modules/zfs/php.ini',
+	ensure => 'file',
+	require => Package['httpd'], 
+	}
         file { '/root/.zshrc':
         mode => '755',
         source => 'puppet:///modules/zfs/.zshrc',
