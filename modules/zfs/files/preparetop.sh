@@ -46,7 +46,7 @@ if [ $? -ne 0 ]; then
  chown apache Data -R
 fi
 
-sed -i "s/HOST/$manip/g" /etc/httpd/conf.d/sshhttp.conf
+sed -i "s/HOSTY/$manip/g" /etc/httpd/conf.d/sshhttp.conf
 echo "$pcsitems" | grep keyweb
 if [ $? -ne 0 ]; then
  sed -i "/ServerName www/c\ServerName $node "  $httpd
@@ -76,4 +76,6 @@ systemctl enable nfs-lock
 systemctl start rpcbind
 systemctl start nfs-server
 systemctl start nfs-idmap
-systemctl start nfs-lock
+systemctl start nfs-lockcd
+cd /root/netdata
+./netdata-installer.sh --dont-wait

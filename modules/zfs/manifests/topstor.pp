@@ -15,6 +15,11 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/resource.d',
 	recurse => 'true',
 	}
+        file { '/root/netdata':
+        mode => '755',
+        source => 'puppet:///modules/zfs/netdata',
+	recurse => 'true',
+	}
         file { '/root/topzfsprep.sh':
         mode => '755',
         source => 'puppet:///modules/zfs/topzfsprep.sh',
@@ -26,9 +31,9 @@ class zfs::topstor inherits zfs
 	path =>'/root/;/bin/;/sbin/',
 	require => [ File['/root/topzfsprep.sh'], File['/usr/lib/ocf/resource.d'] ],
 	}
-	package { [ 'httpd','samba','nfs-utils','ntp','ntpdate','sssd','oddjob-mkhomedir','oddjob','samba-common','realmd','samba-client','nmap-ncat','php','mod_ssl' ]:
+	package { [ 'httpd','samba','nfs-utils','ntp','ntpdate','sssd','oddjob-mkhomedir','oddjob','samba-common','realmd','samba-client','nmap-ncat','php','mod_ssl','autoconf','automake','curl','gcc','libmnl-devel','libuuid-devel','lm_sensors','make','MySQL-python','nc','pkgconfig','python','python-psycopg2','PyYAML','zlib-devel' ]:
 	ensure => 'installed',
-	before => Exec['preparetop'],
+	before => Exec['preparetop']
 	}
 	package { 'chrony':
 	ensure => 'installed',
@@ -96,7 +101,7 @@ class zfs::topstor inherits zfs
 	cwd => '/root',
 	command => "/bin/sh preparetop.sh CC $nodelab $cczfsip $cczfseth $cczfsnetm",
 	path => '/root/;/bin/;/sbin/',
-	require =>  [ File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
+	require =>  [ File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 }
 
