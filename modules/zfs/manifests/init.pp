@@ -44,7 +44,7 @@ $cczfsinitip="10.11.11.254",
 	refreshonly=>true,
 	require => [ Package["vim"], File["/root/zfs.repo"] ],
 	}
-	package { [ "zsh","collectl","expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
+	package { [ "zsh","expect","git","targetcli","iscsi-initiator-utils","pacemaker","pcs" ]:
 	ensure => "installed",
 	require => Exec['preparezfs']
 	}

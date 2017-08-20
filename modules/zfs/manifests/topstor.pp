@@ -1,10 +1,5 @@
 class zfs::topstor inherits zfs  
  {
-        file { '/etc/collectl.conf':
-        mode => '755',
-        source => 'puppet:///modules/zfs/collectl.conf',
-	recurse => 'true',
-	}
         file { '/usr/lib/ocf/lib/heartbeat/http-mon.sh':
         mode => '755',
         source => 'puppet:///modules/zfs/ocf/http-mon.sh',
