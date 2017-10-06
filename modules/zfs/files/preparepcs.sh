@@ -31,5 +31,6 @@ pcs cluster enable --all
 pcs status cluster
 pcs status corosync
 echo "@reboot sleep 120 && /sbin/pcs resource delete --force IPinit && /sbin/ip addr del ${initip}/${netm} dev $eth && /TopStor/factory.sh" > /root/cronfile
+echo "5 8 * * 0  /TopStor/autoGenPatch" >> /root/cronfile
 crontab /root/cronfile
 
