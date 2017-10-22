@@ -77,3 +77,12 @@ systemctl start nfs-idmap
 systemctl start nfs-lockcd
 cd /root/netdata
 ./netdata-installer.sh --dont-wait
+gpg --list-public-keys
+rm -rf /root/.gnupg/trustdb.gpg
+cp /TopStor/key/trustdb.gpg /root/.gnupg/
+rm -rf /root/.gnupg/secring.gpg
+cp /TopStor/key/secring.gpg /root/.gnupg/
+rm -rf /root/.gnupg/pubring.gpg
+cp /TopStor/key/pubring.gpg /root/.gnupg/
+rm -rf /TopStor/key/adminfixed.gpg
+cp /TopStor/factory/adminfixed.gpg /TopStor/key/
