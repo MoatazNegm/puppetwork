@@ -12,8 +12,8 @@ if [ $? -ne 0 ]; then
  git remote add origin http://localrepo/HC.git
  git remote add origin2 http://github.com/MoatazNegm/HC.git
  git fetch origin
- git checkout -b QS1.55
- git pull origin QS1.55
+ git checkout -b QS1.61
+ git pull origin QS1.61
  echo $hostip $hostname > /pacedata/iscsitargets
  echo $hostip $hostname > /pace/iscsitargets
 fi
