@@ -33,4 +33,6 @@ pcs status corosync
 echo "@reboot sleep 120 && /sbin/pcs resource delete --force IPinit && /sbin/ip addr del ${initip}/${netm} dev $eth && /TopStor/factory.sh" > /root/cronfile
 echo "5 8 * * 0  /TopStor/autoGenPatch" >> /root/cronfile
 crontab /root/cronfile
-
+cd /TopStor/
+cp pcsd.service /usr/lib/systemd/system/
+cp target.service /usr/lib/systemd/system/
