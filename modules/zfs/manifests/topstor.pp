@@ -50,6 +50,12 @@ class zfs::topstor inherits zfs
 	ensure => 'file',
 	require => Package['httpd'], 
 	}
+        file { '/root/elixir':
+        mode => '755',
+        source => 'puppet:///modules/zfs/elixir',
+	recurse => 'true',
+	ensure => 'directory',
+	}
         file { '/etc/php.ini':
         mode => '755',
         source => 'puppet:///modules/zfs/php.ini',
@@ -87,10 +93,21 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/server_status.conf',
 	ensure => 'file',
 	}
+        file { '/root/preparemsg.sh':
+        mode => '755',
+        source => 'puppet:///modules/zfs/preparemsg.sh',
+	ensure => 'file',
+	}
         file { '/root/preparetop.sh':
         mode => '755',
         source => 'puppet:///modules/zfs/preparetop.sh',
 	ensure => 'file',
+	}
+	exec { 'preparemsg':
+	cwd => '/root',
+	command => "/bin/sh preparemsg.sh ",
+	path => '/root/;/bin/;/sbin/',
+	require =>  [ File['/root/preparemsg.sh'], File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 	exec { 'preparetop':
 	cwd => '/root',
