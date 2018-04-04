@@ -1,0 +1,11 @@
+[DEFAULT]
+[agent]
+[linux_bridge]
+physical_interface_mappings = provider:enp0s8
+[securitygroup]
+enable_security_group = True
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+[vxlan]
+enable_vxlan = True
+local_ip = CC
+l2_population = True

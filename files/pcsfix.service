@@ -1,0 +1,11 @@
+[Unit]
+Description=Fixing IPaddr and keyweb 
+After=pcsd.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/pcsfix.pid
+ExecStart=/bin/setsid /TopStor/pcsfix.sh
+
+[Install]
+WantedBy=multi-user.target

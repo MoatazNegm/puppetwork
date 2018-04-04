@@ -1,0 +1,79 @@
+[DEFAULT]
+metadata_proxy_shared_secret = tmatem
+my_ip=10.11.11.98
+enabled_apis=osapi_compute,metadata
+osapi_compute_listen=10.11.11.98
+metadata_listen=10.11.11.98
+auth_strategy=keystone
+firewall_driver=nova.virt.firewall.NoopFirewallDriver
+use_neutron=true
+rpc_backend=rabbit
+[api_database]
+connection = mysql+pymysql://nova:tmatem@CC/nova_api
+[barbican]
+[cache]
+[cells]
+[cinder]
+[conductor]
+[cors]
+[cors.subdomain]
+[database]
+connection = mysql+pymysql://nova:tmatem@CC/nova
+[ephemeral_storage_encryption]
+[glance]
+api_servers=http://CC:9292
+[guestfs]
+[hyperv]
+[image_file_url]
+[ironic]
+[keymgr]
+[keystone_authtoken]
+auth_uri=http://CC:5000
+auth_url=http://CC:35357
+memcached_servers=CC:11211
+auth_type=password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = nova
+password = tmatem
+[libvirt]
+[matchmaker_redis]
+[metrics]
+[neutron]
+url = http://CC:9696
+auth_url = http://CC:35357
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+region_name = RegionOne
+project_name = service
+username = NEUTUS
+password = NEUTPASS
+service_metadata_proxy = True
+metadata_proxy_shared_secret = tamtem
+[osapi_v21]
+[oslo_concurrency]
+lock_path=/var/lib/nova/tmp
+[oslo_messaging_amqp]
+[oslo_messaging_notifications]
+[oslo_messaging_rabbit]
+rabbit_host=CC
+rabbit_userid=openstack
+rabbit_password=tmatem
+[oslo_middleware]
+[oslo_policy]
+[rdp]
+[serial_console]
+metadata_proxy_shared_secret = tmatem
+[spice]
+[ssl]
+[trusted_computing]
+[upgrade_levels]
+[vmware]
+[vnc]
+vncserver_listen=$my_ip
+vncserver_proxyclient_address= $my_ip
+novncproxy_host=10.11.11.98
+[workarounds]
+[xenserver]
