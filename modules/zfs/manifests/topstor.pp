@@ -56,6 +56,12 @@ class zfs::topstor inherits zfs
 	recurse => 'true',
 	ensure => 'directory',
 	}
+        file { '/usr/lib/systemd/system/etcd.service':
+        mode => '755',
+        source => 'puppet:///modules/zfs/etcd.service',
+	ensure => 'file',
+	require => Package['httpd'], 
+	}
         file { '/etc/environment':
         mode => '755',
         source => 'puppet:///modules/zfs/php.ini',
