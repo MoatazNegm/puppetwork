@@ -9,5 +9,6 @@ yum install -y rabbitmq-server-3.6.1-1.noarch.rpm
 chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/
 systemctl start rabbitmq-server
 systemctl enable rabbitmq-server 
+chown -R etcd /etc/etcd/*
 
 
