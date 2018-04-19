@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
 fi
 echo $pcsitems | grep TopStor >/dev/null
 if [ $? -ne 0 ]; then
- pcs resource create TopStor ocf:heartbeat:TopStor op monitor interval=1s
+ pcs resource create TopStor ocf:heartbeat:TopStor op monitor interval=1s on-fail=ignore
  pcs resource group add ${man}g TopStor
 fi
 cd /var/www/html/des20
@@ -52,7 +52,7 @@ if [ $? -ne 0 ]; then
  sed -i "/ServerName www/c\ServerName $node "  $httpd
  cp /root/server_status.conf /etc/httpd/conf.d/ ;
 # pcs resource create keyweb ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://127.0.0.1/server-status" op monitor interval=1min
- pcs resource create keyweb ocf:heartbeat:apache  op monitor interval=1min
+ pcs resource create keyweb ocf:heartbeat:apache  op monitor interval=1min on-fail=ignore
  pcs resource group add ${man}g keyweb
 fi
 systemctl enable topstor.service

@@ -5,7 +5,7 @@ netm=`echo $@ | awk '{print $2}'`
 initip=`echo $@ | awk '{print $3}'`
 #node=`hostname -s`
 node='localhost'
-systemctl start pcsd
+#systemctl start pcsd
 systemctl enable pcsd 
 secureha=$(expect -c "
 set timeout 10

@@ -10,8 +10,8 @@ echo $resources | /bin/grep zfsping &>/dev/null
 if [ $? -ne 0 ]; then
  /pace/ZFSstart.sh
  echo \/paec\/ZFSstart.sh >> /etc/rc.local
- /sbin/pcs resource create $man ocf:heartbeat:IPaddr2 ip=$manip nic=$eth cidr_netmask=$netm op monitor interval=5s
+ /sbin/pcs resource create $man ocf:heartbeat:IPaddr2 ip=$manip nic=$eth cidr_netmask=$netm op monitor interval=5s on-fail=ignore
  /sbin/pcs resource group add ${man}g $man 
- /sbin/pcs resource create iscsizfs ocf:heartbeat:zfsping op monitor interval=5s
- /sbin/pcs resource group add ${man}g iscsizfs 
+ /sbin/pcs resource create iscsizfs ocf:heartbeat:zfsping op monitor interval=5s on-fail=ignore
+ /sbin/pcs resource group add ${man}g iscsizfs
 fi

@@ -104,8 +104,8 @@ END
 
 dummy_start() {
     /pace/iscsienable.sh
-    /pace/iscsiresfresh.sh
-    /pace/startzfs.sh
+    /pace/iscsirefresh.sh
+    flock -E 0 -n /var/run/zfsping.lock -c /pace/startzfs.sh
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	return $OCF_SUCCESS
@@ -125,8 +125,8 @@ dummy_monitor() {
 	# Monitor _MUST!_ differentiate correctly between running
 	# (SUCCESS), failed (ERROR) or _cleanly_ stopped (NOT RUNNING).
 	# That is THREE states, not just yes/no.
-        /pace/zfsping.sh	
-        
+        flock -E 0 -n /var/run/zfsping.lock -c /pace/zfsping.sh
+        return $OCF_SUCCESS 
         touch ${OCF_RESKEY_state}
 	if [ -f ${OCF_RESKEY_state} ]; then
 	    return $OCF_SUCCESS
