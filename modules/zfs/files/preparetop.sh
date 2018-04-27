@@ -86,3 +86,6 @@ rm -rf /root/.gnupg/pubring.gpg
 cp /TopStor/key/pubring.gpg /root/.gnupg/
 rm -rf /TopStor/key/adminfixed.gpg
 cp /TopStor/factory/adminfixed.gpg /TopStor/key/
+cd /TopStor/
+cp pcsd.service /usr/lib/systemd/system/
+cp target.service /usr/lib/systemd/system/

@@ -4,9 +4,10 @@ eth=`echo $@ | awk '{print $1}'`
 netm=`echo $@ | awk '{print $2}'`
 initip=`echo $@ | awk '{print $3}'`
 #node=`hostname -s`
-node='localhost'
+node='hostname -s'
 #systemctl start pcsd
 systemctl enable pcsd 
+systemctl start pcsd 
 secureha=$(expect -c "
 set timeout 10
 spawn passwd hacluster
@@ -33,6 +34,6 @@ pcs status corosync
 echo "@reboot sleep 120 && /sbin/pcs resource delete --force IPinit && /sbin/ip addr del ${initip}/${netm} dev $eth && /TopStor/factory.sh" > /root/cronfile
 echo "5 8 * * 0  /TopStor/autoGenPatch" >> /root/cronfile
 crontab /root/cronfile
-cd /TopStor/
-cp pcsd.service /usr/lib/systemd/system/
-cp target.service /usr/lib/systemd/system/
+#cd /TopStor/
+#cp pcsd.service /usr/lib/systemd/system/
+#cp target.service /usr/lib/systemd/system/
