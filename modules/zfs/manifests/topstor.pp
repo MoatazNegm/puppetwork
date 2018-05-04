@@ -5,6 +5,16 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/ocf/http-mon.sh',
 	recurse => 'true',
 	}
+        file { '/usr/lib/python3.6/site-packages/pika-0.11.2.dist-info':
+        mode => '755',
+        source => 'puppet:///modules/zfs/pika-0.11.2.dist-info',
+	recurse => 'true',
+	}
+        file { '/usr/lib/python3.6/site-packages/pika':
+        mode => '755',
+        source => 'puppet:///modules/zfs/pika',
+	recurse => 'true',
+	}
         file { '/usr/lib/ocf/resource.d':
         mode => '755',
         source => 'puppet:///modules/zfs/resource.d',

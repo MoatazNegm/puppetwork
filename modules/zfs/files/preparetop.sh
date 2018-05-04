@@ -23,8 +23,8 @@ if [ $? -ne 0 ]; then
  git remote add origin http://localrepo/TopStordev.git
  git remote add origin2 http://github.com/MoatazNegm/TopStordev.git
  git fetch origin
- git checkout -b QS1.85 
- git pull origin QS1.85
+ git checkout -b QS1.89 
+ git pull origin QS1.89
  ln -s /bin/zsh /usr/local/bin/
  chown apache /TopStor/key -R
  echo $hostname > /TopStordata/hostname
@@ -41,8 +41,8 @@ if [ $? -ne 0 ]; then
 # git remote add origin https://github.com/MoatazNegm/TopStorweb.git
  git remote add origin http://localrepo/TopStorweb.git
  git remote add origin2 http://github.com/MoatazNegm/TopStorweb.git
- git checkout -b QS1.85
- git pull origin QS1.85
+ git checkout -b QS1.89
+ git pull origin QS1.89
  chown apache Data -R
 fi
 
@@ -89,3 +89,4 @@ cp /TopStor/factory/adminfixed.gpg /TopStor/key/
 cd /TopStor/
 cp pcsd.service /usr/lib/systemd/system/
 cp target.service /usr/lib/systemd/system/
+echo 10.11.11.60 > /pacedata/clusterip

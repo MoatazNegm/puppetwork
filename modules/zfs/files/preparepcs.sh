@@ -3,8 +3,7 @@ export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
 eth=`echo $@ | awk '{print $1}'`
 netm=`echo $@ | awk '{print $2}'`
 initip=`echo $@ | awk '{print $3}'`
-#node=`hostname -s`
-node='hostname -s'
+node=`hostname -s`
 #systemctl start pcsd
 systemctl enable pcsd 
 systemctl start pcsd 
