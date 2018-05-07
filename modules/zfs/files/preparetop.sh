@@ -58,25 +58,23 @@ fi
 systemctl enable topstor.service
 systemctl enable topstorremote.service
 systemctl enable topstorremoteack.service
-systemctl start topstor.service
-systemctl start topstorremote.service
-systemctl start topstorremoteack.service
+systemctl enable target 
+systemctl enable iscsi 
+systemctl enable iscsid 
 systemctl enable pcsfix.service
-systemctl start pcsfix.service
 #systemctl enable smb.service
-systemctl start smb.service
 mkdir /var/nfsshare 2>/dev/null
 chmod -R 777 /var/nfsshare/ 
 systemctl enable rpcbind
 systemctl enable nfs-server
 systemctl enable nfs-idmap
 systemctl enable nfs-lock
-systemctl start rpcbind
-systemctl start nfs-server
-systemctl start nfs-idmap
-systemctl start nfs-lockcd
 cd /root/netdata
-./netdata-installer.sh --dont-wait
+systemctl status netdata 2>/dev/null
+if [ $? -ne 0 ];
+then
+ ./netdata-installer.sh --dont-wait
+fi
 gpg --list-public-keys
 rm -rf /root/.gnupg/trustdb.gpg
 cp /TopStor/key/trustdb.gpg /root/.gnupg/

@@ -20,15 +20,15 @@ if [ $? -ne 0 ]; then
 #  modprobe zfs
 # fi
 fi
-cat /etc/rc.local | grep iscsienable 
-if [ $? -ne 0 ]; then
- echo /sbin/zpool export -a >> /etc/rc.local
- echo rm -rf /var/lib/iscsi/send_targets/* >> /etc/rc.local
- echo rm -rf /var/lib/iscsi/nodes/* >> /etc/rc.local
- echo sh /pace/iscsienable.sh >> /etc/rc.local
- echo sh /pace/iscsirefresh.sh >> /etc/rc.local
- chmod 774 /etc/rc.local
-# touch /pacedata/iscsitargets
-fi
+#cat /etc/rc.local | grep iscsienable 
+#if [ $? -ne 0 ]; then
+# echo /sbin/zpool export -a >> /etc/rc.local
+# echo rm -rf /var/lib/iscsi/send_targets/* >> /etc/rc.local
+# echo rm -rf /var/lib/iscsi/nodes/* >> /etc/rc.local
+# echo sh /pace/iscsienable.sh >> /etc/rc.local
+# echo sh /pace/iscsirefresh.sh >> /etc/rc.local
+# chmod 774 /etc/rc.local
+ touch /pacedata/iscsitargets
+#fi
 echo "zfs" > /etc/modules-load.d/zfs.conf 
 modprobe zfs
