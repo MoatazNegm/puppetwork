@@ -79,14 +79,14 @@ servers list (IP or name) that will be pinged
 
 
 <actions>
-<action name="start"        timeout="20" on-fail="restart" />
-<action name="stop"         timeout="20" on-fail="ignore" />
-<action name="monitor"      timeout="200" interval="10" depth="0" />
-<action name="reload"       timeout="20" />
-<action name="migrate_to"   timeout="20" />
-<action name="migrate_from" timeout="20" />
-<action name="meta-data"    timeout="5" />
-<action name="validate-all"   timeout="20" />
+<action name="start"        timeout="200s" on-fail="restart" />
+<action name="stop"         timeout="200s" on-fail="ignore" />
+<action name="monitor"      timeout="200s" interval="50s" depth="0" />
+<action name="reload"       timeout="200s" />
+<action name="migrate_to"   timeout="200s" />
+<action name="migrate_from" timeout="200s" />
+<action name="meta-data"    timeout="5s" />
+<action name="validate-all"   timeout="200s" />
 </actions>
 </resource-agent>
 END
@@ -103,9 +103,9 @@ END
 }
 
 dummy_start() {
-    /pace/iscsienable.sh
-    /pace/iscsirefresh.sh
-    flock -E 0 -n /var/run/zfsping.lock -c /pace/startzfs.sh
+ #   sh /pace/iscsienable.sh
+#    flock -E 0 -n /var/run/zfsping.lock -c /pace/startzfs.sh
+    touch /pacedata/startzfsping
     dummy_monitor
     if [ $? =  $OCF_SUCCESS ]; then
 	return $OCF_SUCCESS
@@ -125,7 +125,7 @@ dummy_monitor() {
 	# Monitor _MUST!_ differentiate correctly between running
 	# (SUCCESS), failed (ERROR) or _cleanly_ stopped (NOT RUNNING).
 	# That is THREE states, not just yes/no.
-        flock -E 0 -n /var/run/zfsping.lock -c /pace/zfsping.sh
+        #flock -E 0 -n /var/run/zfsping.lock -c /pace/zfsping.sh
         return $OCF_SUCCESS 
         touch ${OCF_RESKEY_state}
 	if [ -f ${OCF_RESKEY_state} ]; then

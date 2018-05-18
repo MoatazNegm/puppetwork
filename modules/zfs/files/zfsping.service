@@ -1,0 +1,10 @@
+[Unit]
+Description=ZFSping
+
+[Service]
+Type=forking
+PIDFile=/var/run/zfsping.pid
+ExecStart=/bin/setsid /pace/zfsping.sh
+
+[Install]
+WantedBy=multi-user.target

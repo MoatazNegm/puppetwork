@@ -13,5 +13,6 @@ if [ $? -ne 0 ]; then
  /sbin/pcs resource create $man ocf:heartbeat:IPaddr2 ip=$manip nic=$eth cidr_netmask=$netm op monitor interval=5s on-fail=restart
  /sbin/pcs resource group add ${man}g $man 
  /sbin/pcs resource create iscsizfs ocf:heartbeat:zfsping op monitor interval=5s on-fail=restart
+/sbin/pcs resource update iscsizfs op start timeout=400s
  /sbin/pcs resource group add ${man}g iscsizfs
 fi

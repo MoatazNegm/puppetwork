@@ -110,6 +110,11 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/topstor.service',
 	ensure => 'file',
 	}
+        file { '/usr/lib/systemd/system/zfsping.service':
+        mode => '755',
+        source => 'puppet:///modules/zfs/zfsping.service',
+	ensure => 'file',
+	}
         file { '/root/server_status.conf':
         mode => '755',
         source => 'puppet:///modules/zfs/server_status.conf',
@@ -129,13 +134,13 @@ class zfs::topstor inherits zfs
 	cwd => '/root',
 	command => "/bin/sh preparemsg.sh ",
 	path => '/root/;/bin/;/sbin/',
-	require =>  [ File['/root/preparemsg.sh'], File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
+	require =>  [ File['/root/preparemsg.sh'], File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/usr/lib/systemd/system/zfsping.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 	exec { 'preparetop':
 	cwd => '/root',
 	command => "/bin/sh preparetop.sh CC $nodelab $cczfsip $cczfseth $cczfsnetm",
 	path => '/root/;/bin/;/sbin/',
-	require =>  [ File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
+	require =>  [ File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/usr/lib/systemd/system/zfsping.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
 }
 
