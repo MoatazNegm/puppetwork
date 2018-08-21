@@ -31,7 +31,7 @@ pcs cluster enable --all
 pcs status cluster
 pcs status corosync
 echo "@reboot /TopStor/initcron.sh " > /root/cronfile
-echo "*/4 * * * *  sh /pace/iscsiwatchdog.sh" >> /root/cronfile
+#echo "*/4 * * * *  sh /pace/iscsiwatchdog.sh" >> /root/cronfile
 echo "5 8 * * 0  /TopStor/autoGenPatch" >> /root/cronfile
 crontab /root/cronfile
 #cd /TopStor/
