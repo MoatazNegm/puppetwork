@@ -124,7 +124,19 @@ dummy_monitor() {
 	# Monitor _MUST!_ differentiate correctly between running
 	# (SUCCESS), failed (ERROR) or _cleanly_ stopped (NOT RUNNING).
 	# That is THREE states, not just yes/no.
-        
+         systemctl status httpd
+         if [ $? -ne 0 ];
+         then
+	  systemctl start httpd
+         fi 
+        systemctl status topstorremote
+        if [ $? -ne 0 ]; then
+         systemctl start topstorremote
+        fi
+        systemctl status topstorremoteack
+        if [ $? -ne 0 ]; then
+         systemctl start topstorremoteack
+        fi
         touch ${OCF_RESKEY_state}
 	if [ -f ${OCF_RESKEY_state} ]; then
 	    return $OCF_SUCCESS
