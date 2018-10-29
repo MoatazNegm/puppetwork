@@ -1,0 +1,11 @@
+[Unit]
+Description=Services watchdog
+After=chronyd.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/servicewatchdog.pid
+ExecStart=/bin/setsid /TopStor/ServiceWatchdog.sh
+
+[Install]
+WantedBy=multi-user.target

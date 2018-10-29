@@ -100,6 +100,11 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/topstorremote.service',
 	ensure => 'file',
 	}
+        file { '/usr/lib/systemd/system/servicewatchdog.service':
+        mode => '755',
+        source => 'puppet:///modules/zfs/servicewatchdog.service',
+	ensure => 'file',
+	}
         file { '/usr/lib/systemd/system/pcsfix.service':
         mode => '755',
         source => 'puppet:///modules/zfs/pcsfix.service',
