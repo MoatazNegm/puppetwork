@@ -10,6 +10,6 @@ chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/
 systemctl start rabbitmq-server
 systemctl enable rabbitmq-server 
 chown -R etcd /etc/etcd/*
-/pace/startzfs.sh:/sbin/rabbitmqctl add_user rabbmezo HIHIHI 2>/dev/null
-/pace/startzfs.sh:/sbin/rabbitmqctl set_permissions -p / rabbmezo ".*" ".*" ".*" 2>/dev/null
-/pace/startzfs.sh:/sbin/rabbitmqctl set_user_tags rabbmezo administrator
+/sbin/rabbitmqctl add_user rabbmezo HIHIHI 2>/dev/null
+/sbin/rabbitmqctl set_permissions -p / rabbmezo ".*" ".*" ".*" 2>/dev/null
+/sbin/rabbitmqctl set_user_tags rabbmezo administrator
