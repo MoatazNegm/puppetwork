@@ -1,4 +1,5 @@
 #!/bin/sh
+echo $@ > /root/chronyconfigparam
 ipnet=`echo $@ | awk '{print $1}'`
 ipmask=`echo $@ | awk '{print $2}'`
 cc=`echo $@ | awk '{print $3}'`

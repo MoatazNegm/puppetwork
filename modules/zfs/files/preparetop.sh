@@ -1,5 +1,6 @@
 #!/bin/sh
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
+echo $@ > /root/preparetopparam
 httpd='/etc/httpd/conf/httpd.conf';
 man=`echo $@ | awk '{print $1}'`
 node=`echo $@ | awk '{print $2}'`
@@ -20,7 +21,7 @@ git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
 # git remote add origin https://github.com/MoatazNegm/TopStordev.git
- git remote add origin http://localrepo/TopStordev.git
+ git remote add origin http://localrepo.zenty.localdomain/TopStordev.git
  git remote add origin2 http://github.com/MoatazNegm/TopStordev.git
  git fetch origin
  git checkout -b QS2.05
@@ -39,7 +40,7 @@ git status | grep \# | grep On | grep centos >/dev/null
 if [ $? -ne 0 ]; then
  git init
 # git remote add origin https://github.com/MoatazNegm/TopStorweb.git
- git remote add origin http://localrepo/TopStorweb.git
+ git remote add origin http://localrepo.zenty.localdomain/TopStorweb.git
  git remote add origin2 http://github.com/MoatazNegm/TopStorweb.git
  git checkout -b QS2.05
  git pull origin QS2.05

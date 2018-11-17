@@ -1,4 +1,5 @@
 #!/bin/sh
+echo $@>/root/topzfsprepparam
 man=`echo $@ | /bin/awk '{print $1}'`;
 manip=`echo $@ | /bin/awk '{print $2}'`;
 eth=`echo $@ | /bin/awk '{print $3}'`;

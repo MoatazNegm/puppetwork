@@ -1,4 +1,5 @@
 #!/bin/sh
+echo $@ > /root/preparepcsparam
 export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root
 eth=`echo $@ | awk '{print $1}'`
 netm=`echo $@ | awk '{print $2}'`
