@@ -77,7 +77,9 @@ cd /root/netdata
 systemctl status netdata 2>/dev/null
 if [ $? -ne 0 ];
 then
- ./netdata-installer.sh --dont-wait
+# ./netdata-installer.sh --dont-wait
+sleep 1
+
 fi
 gpg --list-public-keys
 rm -rf /root/.gnupg/trustdb.gpg
