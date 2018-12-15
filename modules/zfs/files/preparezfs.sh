@@ -8,7 +8,7 @@ yum remove -y dkms
 #yum install -y http://archive.zfsonlinux.org/epel/zfs-release$(rpm -E %dist).noarch.rpm
 #gpg --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
 #cp /root/zfs.repo  /etc/yum.repos.d/
-cp /root/zfslocal.repo  /etc/yum.repos.d/
+#cp /root/zfslocal.repo  /etc/yum.repos.d/
 #yum install -y kernel-devel-$(uname -r)  kernel-headers-$(uname -r)
 yum install -y zfs
 lsmod | grep zfs
