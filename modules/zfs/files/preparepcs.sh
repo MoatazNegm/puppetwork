@@ -38,4 +38,3 @@ crontab /root/cronfile
 #cd /TopStor/
 #cp pcsd.service /usr/lib/systemd/system/
 #cp target.service /usr/lib/systemd/system/
-sed -i 's\Require\Before\g' /usr/lib/systemd/system/pcsd.service

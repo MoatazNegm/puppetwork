@@ -91,6 +91,6 @@ cp /TopStor/key/pubring.gpg /root/.gnupg/
 rm -rf /TopStor/key/adminfixed.gpg
 cp /TopStor/factory/adminfixed.gpg /TopStor/key/
 cd /TopStor/
-cp pcsd.service /usr/lib/systemd/system/
+#cp pcsd.service /usr/lib/systemd/system/
 cp target.service /usr/lib/systemd/system/
 echo 10.11.11.60 > /pacedata/clusterip

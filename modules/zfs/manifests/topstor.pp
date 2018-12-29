@@ -110,6 +110,11 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/pcsfix.service',
 	ensure => 'file',
 	}
+        file { '/etc/iscsi/iscsid.conf':
+        mode => '755',
+        source => 'puppet:///modules/zfs/iscsid.conf',
+	ensure => 'file',
+	}
         file { '/etc/iscsid.conf':
         mode => '755',
         source => 'puppet:///modules/zfs/iscsid.conf',
