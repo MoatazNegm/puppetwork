@@ -21,3 +21,5 @@ expect eof
 ")
 echo sshresult=$securessh > sshtmp
 #/pace/initdisks.sh
+systemctl disable iscsid
+systemctl disable iscsi
