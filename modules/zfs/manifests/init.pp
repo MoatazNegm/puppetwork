@@ -53,6 +53,11 @@ $cczfsinitip="10.11.11.254",
 	refreshonly => true,
 	}
 	
+        file { ['/root/preparegraphite.sh']:
+        mode => '755',
+        source => 'puppet:///modules/zfs/preparegraphite.sh',
+	ensure => 'file',
+	}
         file { ['/root/preparepcs.sh']:
         mode => '755',
         source => 'puppet:///modules/zfs/preparepcs.sh',
@@ -77,6 +82,11 @@ $cczfsinitip="10.11.11.254",
 	cwd => '/root',
 	command => "/root/prepareiscsi.sh ",
 	require => [ Exec['preparepace'], File['/root/prepareiscsi.sh'], Package["targetcli"], Package['iscsi-initiator-utils']  ],
+	}
+	exec { 'preparegraphite':
+	cwd => '/root',
+	command => "/bin/sh preparegraphite.sh ",
+	require => [ File['/root/preparegraphite.sh'], File['/etc/docker/daemon.json'] ],
 	}
 	exec { 'preparepcs':
 	cwd => '/root',

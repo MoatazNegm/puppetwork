@@ -1,0 +1,7 @@
+{
+ "insecure-registries": ["10.11.11.124:5000", "localrepo:5000","localrepo.zenty.localdomain:5000" ],
+ "storage-driver": "overlay2",
+ "storage-opts": [
+  "overlay2.override_kernel_check=true"
+ ]
+}
