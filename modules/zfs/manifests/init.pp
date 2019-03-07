@@ -83,11 +83,6 @@ $cczfsinitip="10.11.11.254",
 	command => "/root/prepareiscsi.sh ",
 	require => [ Exec['preparepace'], File['/root/prepareiscsi.sh'], Package["targetcli"], Package['iscsi-initiator-utils']  ],
 	}
-	exec { 'preparegraphite':
-	cwd => '/root',
-	command => "/bin/sh preparegraphite.sh $cczfsip",
-	require => [ File['/root/preparegraphite.sh'], File['/root/daemon.json'] ],
-	}
 	exec { 'preparepcs':
 	cwd => '/root',
 	command => "/bin/sh preparepcs.sh $cczfseth $cczfsnetm $cczfsinitip ",

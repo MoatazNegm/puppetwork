@@ -157,5 +157,10 @@ class zfs::topstor inherits zfs
 	path => '/root/;/bin/;/sbin/',
 	require =>  [ File['/root/netdata'], File['/etc/httpd/conf.d/sshhttp.conf'], File['/root/server_status.conf'], File['/usr/lib/systemd/system/pcsfix.service'], File['/usr/lib/systemd/system/topstor.service'], File['/usr/lib/systemd/system/zfsping.service'], File['/root/preparetop.sh'], Package['zsh'], Exec['topzfsprep'] ],
 	}
+	exec { 'preparegraphite':
+	cwd => '/root',
+	command => "/bin/sh preparegraphite.sh $cczfsip",
+	require => [ Exec['preparetop'], File['/root/preparegraphite.sh'], File['/root/daemon.json'] ],
+	}
 }
 
