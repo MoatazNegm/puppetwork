@@ -85,8 +85,8 @@ $cczfsinitip="10.11.11.254",
 	}
 	exec { 'preparegraphite':
 	cwd => '/root',
-	command => "/bin/sh preparegraphite.sh ",
-	require => [ File['/root/preparegraphite.sh'], File['/etc/docker/daemon.json'] ],
+	command => "/bin/sh preparegraphite.sh $cczfsip",
+	require => [ File['/root/preparegraphite.sh'], File['/root/daemon.json'] ],
 	}
 	exec { 'preparepcs':
 	cwd => '/root',

@@ -115,7 +115,7 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/iscsid.conf',
 	ensure => 'file',
 	}
-        file { '/etc/docker/daemon.json':
+        file { '/root/daemon.json':
         mode => '755',
         source => 'puppet:///modules/zfs/daemon.json',
 	ensure => 'file',
