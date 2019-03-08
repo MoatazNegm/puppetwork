@@ -95,6 +95,7 @@ cd /TopStor/
 cp target.service /usr/lib/systemd/system/
 echo 10.11.11.60 > /pacedata/clusterip
 cp /TopStor/grafana.files /TopStordata -r
+cp /TopStor/grafana /TopStordata -r
 cp /TopStor/prometheus.files /TopStordata -r
 cp /TopStordata/prometheus.files/orig_prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml.orig
 sed -i "s/HOSTNAME/$hostname/g" /TopStordata/prometheus.files/prometheus.yml.orig
