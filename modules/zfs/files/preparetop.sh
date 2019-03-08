@@ -94,6 +94,10 @@ cd /TopStor/
 #cp pcsd.service /usr/lib/systemd/system/
 cp target.service /usr/lib/systemd/system/
 echo 10.11.11.60 > /pacedata/clusterip
-cp /TopStor/prometheus.files/orig_prometheus.yml.orig /TopStor/prometheus.files/prometheus.yml.orig
-sed -i "s/HOSTNAME/$hostname/g" /TopStor/prometheus.files/prometheus.yml.orig
-cp /TopStor/prometheus.files/prometheus.yml.orig /TopStor/prometheus.files/prometheus.yml
+cp /TopStor/grafana.files /TopStordata -r
+cp /TopStor/prometheus.files /TopStordata -r
+cp /TopStordata/prometheus.files/orig_prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml.orig
+sed -i "s/HOSTNAME/$hostname/g" /TopStordata/prometheus.files/prometheus.yml.orig
+cp /TopStordata/prometheus.files/prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml
+echo $manip $myhost >> /TopStordata/grafana.files/hosts
+echo $manip $myhost >> /TopStordata/prometheus.files/hosts
