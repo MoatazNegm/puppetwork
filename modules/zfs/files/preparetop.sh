@@ -24,8 +24,8 @@ if [ $? -ne 0 ]; then
  git remote add origin http://10.11.11.124/TopStordev.git
  git remote add origin2 http://github.com/MoatazNegm/TopStordev.git
  git fetch origin
- git checkout -b QS2.71
- git pull origin QS2.71
+ git checkout -b QS2.72
+ git pull origin QS2.72
  ln -s /bin/zsh /usr/local/bin/
  chown apache /TopStor/key -R
  echo $hostname > /TopStordata/hostname
@@ -42,8 +42,8 @@ if [ $? -ne 0 ]; then
 # git remote add origin https://github.com/MoatazNegm/TopStorweb.git
  git remote add origin http://10.11.11.124/TopStorweb.git
  git remote add origin2 http://github.com/MoatazNegm/TopStorweb.git
- git checkout -b QS2.71
- git pull origin QS2.71
+ git checkout -b QS2.72
+ git pull origin QS2.72
  mkdir Data
  chown apache Data -R
  chown apache Data -R
@@ -99,6 +99,7 @@ cp /TopStor/grafana /TopStordata -r
 cp /TopStor/prometheus.files /TopStordata -r
 cp /TopStordata/prometheus.files/orig_prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml.orig
 sed -i "s/HOSTNAME/$hostname/g" /TopStordata/prometheus.files/prometheus.yml.orig
+sed -i "s/HOSTNAME/$hostname/g" /TopStordata/grafana/provisioning/datasources/datasource.yaml
 cp /TopStordata/prometheus.files/prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml
-echo $manip $myhost >> /TopStordata/grafana.files/hosts
-echo $manip $myhost >> /TopStordata/prometheus.files/hosts
+echo $manip $hostname >> /TopStordata/grafana.files/hosts
+echo $manip $hostname >> /TopStordata/prometheus.files/hosts
