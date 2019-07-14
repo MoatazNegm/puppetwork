@@ -8,6 +8,11 @@ manip=`echo $@ | awk '{print $3}'`
 eth=`echo $@ | awk '{print $4}'`
 netm=`echo $@ | awk '{print $5}'`
 hostname=`hostname -s`
+mkdir /opt/passwds
+ln /etc/passwd /opt/passwds/passwd
+ln /etc/group /opt/passwds/group
+ln /etc/shadow /opt/passwds/shadow
+
 mkdir /var/www/html/des20 2>/dev/null
 mkdir /TopStor 2>/dev/null
 mkdir /TopStordata 2>/dev/null
@@ -70,9 +75,9 @@ systemctl enable pcsfix.service
 mkdir /var/nfsshare 2>/dev/null
 chmod -R 777 /var/nfsshare/ 
 systemctl enable rpcbind
-systemctl enable nfs-server
-systemctl enable nfs-idmap
-systemctl enable nfs-lock
+systemctl disable nfs-server
+systemctl disable nfs-idmap
+systemctl disable nfs-lock
 cd /root/netdata
 systemctl status netdata 2>/dev/null
 if [ $? -ne 0 ];
@@ -103,3 +108,6 @@ sed -i "s/HOSTNAME/$hostname/g" /TopStordata/grafana/provisioning/datasources/da
 cp /TopStordata/prometheus.files/prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml
 echo $manip $hostname >> /TopStordata/grafana.files/hosts
 echo $manip $hostname >> /TopStordata/prometheus.files/hosts
+systemctl disable nfs
+systemctl disable rpc-statd
+systemctl disable smb
