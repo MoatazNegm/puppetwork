@@ -3,6 +3,7 @@ $nodelab="usbdummy",
 $cczfsip="10.11.11.244",
 $cczfsnetm="24",
 $cczfseth="enp0s8",
+#$cczfseth="eno1",
 $cczfsinitip="10.11.11.254",
 )
 { 
