@@ -130,6 +130,11 @@ class zfs::topstor inherits zfs
         source => 'puppet:///modules/zfs/zfsping.service',
 	ensure => 'file',
 	}
+        file { '/usr/lib/systemd/system/logqueue.service':
+        mode => '755',
+        source => 'puppet:///modules/zfs/logqueue.service',
+	ensure => 'file',
+	}
         file { '/root/server_status.conf':
         mode => '755',
         source => 'puppet:///modules/zfs/server_status.conf',
