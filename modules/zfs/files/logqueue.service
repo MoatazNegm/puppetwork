@@ -1,0 +1,11 @@
+[Unit]
+Description=LogQueue localservice
+After=topstor.service
+
+[Service]
+Type=forking
+PIDFile=/var/run/logqueue.pid
+ExecStart=/bin/setsid /TopStor/Logqueueheap.sh
+
+[Install]
+WantedBy=multi-user.target
