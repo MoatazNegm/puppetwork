@@ -53,7 +53,8 @@ if [ $? -ne 0 ]; then
  chown apache Data -R
  chown apache Data -R
 fi
-
+rm -rf /etc/httpd/conf.d/sshhttp.conf
+cp /TopStor/sshhttp.conf /etc/httpd/conf.d/
 sed -i "s/HOSTY/$manip/g" /etc/httpd/conf.d/sshhttp.conf
 echo "$pcsitems" | grep keyweb
 if [ $? -ne 0 ]; then
