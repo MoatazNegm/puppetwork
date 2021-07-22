@@ -34,7 +34,7 @@ pcs status corosync
 echo "@reboot /TopStor/initcron.sh " > /root/cronfile
 #echo "*/4 * * * *  sh /pace/iscsiwatchdog.sh" >> /root/cronfile
 echo "5 8 * * 0  /TopStor/autoGenPatch" >> /root/cronfile
-echo "*/5 * * * * sh /TopStor/ioperf.py Initialization" >> /root/cronfile
+echo "*/5 * * * * /TopStor/ioperf.py Initialization" >> /root/cronfile
 crontab /root/cronfile
 #cd /TopStor/
 #cp pcsd.service /usr/lib/systemd/system/
