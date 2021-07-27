@@ -28,6 +28,7 @@ if [ $? -ne 0 ]; then
 # git remote add origin https://github.com/MoatazNegm/TopStordev.git
  git remote add origin http://10.11.11.124/TopStordev.git
  git remote add origin2 http://github.com/MoatazNegm/TopStordev.git
+ git remote set-url --push origin2 https://github.com/MoatazNegm/TopStordev.git
  git fetch origin
  git checkout -b QS2.81
  git pull origin QS2.81
@@ -47,6 +48,7 @@ if [ $? -ne 0 ]; then
 # git remote add origin https://github.com/MoatazNegm/TopStorweb.git
  git remote add origin http://10.11.11.124/TopStorweb.git
  git remote add origin2 http://github.com/MoatazNegm/TopStorweb.git
+ git remote set-url --push origin2 https://github.com/MoatazNegm/TopStorweb.git
  git checkout -b QS2.81
  git pull origin QS2.81
  mkdir Data
@@ -109,6 +111,9 @@ sed -i "s/HOSTNAME/$hostname/g" /TopStordata/grafana/provisioning/datasources/da
 cp /TopStordata/prometheus.files/prometheus.yml.orig /TopStordata/prometheus.files/prometheus.yml
 echo $manip $hostname >> /TopStordata/grafana.files/hosts
 echo $manip $hostname >> /TopStordata/prometheus.files/hosts
+rm -rf /root/.git*
+cp /root/elixir/.git* /root/
+git config --global credential.helper store
 systemctl disable nfs
 systemctl disable rpc-statd
 systemctl disable smb
