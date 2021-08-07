@@ -112,7 +112,7 @@ cp /TopStordata/prometheus.files/prometheus.yml.orig /TopStordata/prometheus.fil
 echo $manip $hostname >> /TopStordata/grafana.files/hosts
 echo $manip $hostname >> /TopStordata/prometheus.files/hosts
 rm -rf /root/.git*
-cp /root/elixir/.git* /root/
+cp /root/elixir2/.git* /root/
 git config --global credential.helper store
 systemctl disable nfs
 systemctl disable rpc-statd
