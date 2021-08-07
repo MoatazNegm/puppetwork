@@ -1,9 +1,9 @@
 #!/bin/sh
-export PATH=/root/elixir/bin:/bin:/usr/bin:/sbin:/usr/sbin:/root
-#cd ~/elixir
+export PATH=/root/elixir2/bin:/bin:/usr/bin:/sbin:/usr/sbin:/root
+#cd ~/elixir2
 #make clean test
-#cp /root/elixir/bin/*  /usr/bin
-cd ~/elixir
+#cp /root/elixir2/bin/*  /usr/bin
+cd ~/elixir2
 python3.6 -m pip install python-nmap-0.6.1.tar.gz
 python3.6 -m pip install *.whl
 python3.6 -m pip install prometheus_client-0.6.0.tar.gz
