@@ -60,9 +60,9 @@ class zfs::topstor inherits zfs
 	ensure => 'file',
 	require => Package['httpd'], 
 	}
-        file { '/root/elixir':
+        file { '/root/elixir2':
         mode => '755',
-        source => 'puppet:///modules/zfs/elixir',
+        source => 'puppet:///modules/zfs/elixir2',
 	recurse => 'true',
 	ensure => 'directory',
 	}
