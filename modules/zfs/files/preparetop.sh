@@ -53,12 +53,12 @@ if [ $? -ne 0 ]; then
  git pull origin QS2.85
  rm -rf dashboarddev2/img/*
  rm -rf dashboarddev2/dist/img/*
- cp img/* dashboarddev2/img/
- cp img/* dashboarddev2/dist/img/
- rm -rf dashboarddev2/plugins/fontawesome-free/*
- cp -r plugins/fontawesome-free/* dashboarddev2/plugins/fontawesome-free/
- rm -rf dashboarddev2/plugins/gfont/*
- cp -r plugins/gfont/* dashboarddev2/plugins/gfont/
+ #cp img/* dashboarddev2/img/
+# cp img/* dashboarddev2/dist/img/
+# rm -rf dashboarddev2/plugins/fontawesome-free/*
+# cp -r plugins/fontawesome-free/* dashboarddev2/plugins/fontawesome-free/
+# rm -rf dashboarddev2/plugins/gfont/*
+# cp -r plugins/gfont/* dashboarddev2/plugins/gfont/
  
  mkdir Data
  chown apache Data -R
