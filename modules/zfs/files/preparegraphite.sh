@@ -14,3 +14,4 @@ then
  docker run -d --name=grafana --restart=always -p 3000:3000 -v /TopStordata/grafana.files/hosts:/etc/hosts -v "/TopStordata/grafana:/etc/grafana" 10.11.11.124:5000/grafana
 fi
 docker pull 10.11.11.124:5000/smb
+docker pull 10.11.11.124:5000/membersmb
